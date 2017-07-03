@@ -39,7 +39,8 @@ I found it important to get the core functionality of Simstagram working before 
 ## Known Issues/TODOs
 
 - Build Simstagram
-- Tests for Session Controller are all currently pending untill I can      research how best to approach them
+- Tests for Session Controller are all currently pending untill I can research how best to approach them
+- If rspec tests are failing citing "TypeError: wrong argument type Integer (expected Proc)" This is a bug with Ruby MRI 2.4.0 https://bugs.ruby-lang.org/issues/13107. Please ensure you are using Ruby 2.4.1
 
 ## Acknowledgement
 - Thanks to Jenny Wem (https://github.com/wemmm) for showing me how to write a good README
