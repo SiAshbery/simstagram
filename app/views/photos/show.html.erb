@@ -2,3 +2,14 @@
 Posted: <%= @photo.created_at.strftime("%d/%m/%Y %H:%M") %><br>
 <%= button_to 'Go Back', '/photos', method: :get %><br>
 <img src="<%= @photo.image_file_url %>" id="photo_image"></img>
+<h2>Add a comment:</h2>
+<%= form_for([@photo, @photo.comments.build]) do |comment| %>
+  <div class="field">
+    <%= comment.label :body %><br />
+    <%= comment.text_area :body %>
+    <%= comment.hidden_field :post_id, value: @photo.id%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
