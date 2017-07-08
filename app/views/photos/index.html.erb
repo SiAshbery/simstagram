@@ -13,9 +13,8 @@
         <ul>
             <li id="<%= photo.id %>">
                 <%= photo.title %> by <%= photo.user.display_name %><br>
-                Posted: <%= photo.created_at.strftime("%d/%m/%Y %H:%M") %><br> 
-                <img src="<%= photo.image_file_url%>"  width="600"</img><br>
-                <%= link_to 'Show', photo_path(photo)%>
+                Posted: <%= photo.created_at.strftime("%d/%m/%Y %H:%M") %><br>
+                  <a href="<%= photo_path(photo) %>" id="Show"> <img src="<%= photo.image_file_url%>"  width="600"</img></a><br>
             </li>
         </ul>
     <%end%>
