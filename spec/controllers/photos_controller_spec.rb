@@ -2,7 +2,7 @@ require 'rails_helper'
 require_relative './helpers/photos_controller_helpers_spec'
 
 RSpec.describe PhotosController, type: :controller do
-    
+
     before(:each) do
         @user = create(:user)
         @user.photos.create({title: "New Photo", image_file: upload_file  })
@@ -20,7 +20,7 @@ RSpec.describe PhotosController, type: :controller do
             get :index
             expect(response).to render_template("index")
         end
-        
+
         it "assigns @photos" do
             get :index
             expect(assigns(:photos)).to eq([@user.photos[0]])
@@ -52,7 +52,7 @@ RSpec.describe PhotosController, type: :controller do
             get :show, params: { id: @user.photos[0].id }
             expect(response).to render_template("show")
         end
-        
+
         it "assigns @photo" do
             get :show, params: { id: @user.photos[0].id }
             expect(assigns(:photo)).to eq(@user.photos[0])
@@ -71,7 +71,7 @@ RSpec.describe PhotosController, type: :controller do
             post :create, params: { photo: {title: "New Photo", image_file: upload_file  } }
             expect(response).to redirect_to("/photos/#{most_recent_photo.id}")
         end
-        
+
         it "assigns @photo" do
             post :create, params: { photo: {title: "New Photo", image_file: upload_file  } }
             expect(assigns(:photo)).to eq(most_recent_photo)
