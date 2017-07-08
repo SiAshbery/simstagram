@@ -1,4 +1,25 @@
 <h2><%= @photo.title %> by <%= @photo.user.display_name %><br></h2>
-Posted: <%= @photo.created_at.strftime("%d/%m/%Y %H:%M") %><br>
-<%= button_to 'Go Back', '/photos', method: :get %><br>
-<img src="<%= @photo.image_file_url %>" id="photo_image"></img>
+  Posted: <%= @photo.created_at.strftime("%d/%m/%Y %H:%M") %><br>
+  <%= button_to 'Go Back', '/photos', method: :get %><br>
+  <img src="<%= @photo.image_file_url %>" id="photo_image"></img>
+
+<% if @photo.comments.any? %>
+  <h2>Comments:</h2><br>
+  <% @photo.comments.each do |comment| %>
+    <%= comment.user.display_name %> said:<br>
+    <%= comment.body %><br>
+    at <%= comment.created_at.strftime("%H:%M") %> on <%= comment.created_at.strftime("%d/%m/%Y") %>
+    <br>
+  <% end %>
+<% end %>
+
+<h2>Add a comment:</h2>
+  <%= form_for([@photo, @photo.comments.build]) do |comment| %>
+    <p>
+      <%= comment.label :body %><br>
+      <%= comment.text_area :body %>
+    </p>
+    <p>
+      <%= comment.submit %>
+    </p>
+<% end %>
