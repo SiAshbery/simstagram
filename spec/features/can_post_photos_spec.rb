@@ -1,4 +1,3 @@
-
 require_relative './helpers/photo_feature_helpers_spec'
 
 RSpec.feature "Post a Photo", type: :feature do

@@ -10,5 +10,19 @@ class ApplicationController < ActionController::Base
   def authorize
     redirect_to '/' unless current_user
   end
-  
+
+  def user_has_liked_photo?( photo = @photo )
+    return unless current_user
+    current_user.likes.any? { |like| like.photo.id == @photo.id }
+  end
+
+  helper_method :user_has_liked_photo?
+
+  def like_for_current_user_and_post(photo = @photo)
+    Like.where(user: current_user, photo: @photo).first
+  end
+
+  helper_method :like_for_current_user_and_post
+
+
 end
