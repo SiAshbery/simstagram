@@ -1,7 +1,21 @@
 <h2><%= @photo.title %> by <%= @photo.user.display_name %><br></h2>
   Posted: <%= @photo.created_at.strftime("%d/%m/%Y %H:%M") %><br>
   <%= button_to 'Go Back', '/photos', method: :get %><br>
-  <img src="<%= @photo.image_file_url %>" id="photo_image"></img>
+
+  <img src="<%= @photo.image_file_url %>" id="photo_image"></img> <br>
+
+  <%= @photo.likes.length %> <%= @photo.likes.length == 1 ? "Like" : "Likes" %>
+    <% if user_has_liked_photo? %>
+      <%= form_for([@photo, like_for_current_user_and_post], method: :delete) do |like| %>
+          <%= like.hidden_field :photo_id, value: @photo.id %>
+          <%= like.submit "Unlike Photo" %><br>
+      <% end %>
+    <% else %>
+      <%= form_for([@photo, @photo.likes.build]) do |like| %>
+          <%= like.submit "Like Photo" %><br>
+      <% end %>
+    <% end %>
+
 
 <% if @photo.comments.any? %>
   <h2>Comments:</h2><br>
