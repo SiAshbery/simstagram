@@ -2,6 +2,24 @@
 
 ```
 As a user
+So I know what's going on
+I want to see error messages when I can't complete an action
+```
+
+```
+As a remorseful user
+So I can escape my shame
+I want to edit and delete my photos
+```
+
+```
+As a remorseful user
+So I can erase my shame
+I want to edit and delete my comments
+```
+
+```
+As a user
 So I can show the world how wonderful and artistic I am
 I want a profile page with all my photos
 ```
