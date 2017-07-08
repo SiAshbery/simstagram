@@ -4,6 +4,7 @@ RSpec.describe LikesController, type: :controller do
 
   before(:each) do
     @photo = create(:photo)
+    @photo_02 = create(:photo)
     @user = create(:user)
     @like = @user.likes.create(photo: @photo)
     session[:user_id] = @user.id
@@ -18,16 +19,16 @@ RSpec.describe LikesController, type: :controller do
       expect(response.status).to eq(302)
     end
 
-    it "redirects to show" do
+    it "redirects to index" do
       post :create, params: {
         photo_id: @photo.id,
       }
-      expect(response).to redirect_to("/photos/#{most_recent_photo.id}")
+      expect(response).to redirect_to("/")
     end
 
     it "assigns @like" do
       post :create, params: {
-        photo_id: @photo.id,
+        photo_id: @photo_02.id,
         }
         expect(assigns(:like)).to eq(most_recent_like)
     end

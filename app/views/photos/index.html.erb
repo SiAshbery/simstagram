@@ -15,6 +15,18 @@
                 <%= photo.title %> by <%= photo.user.display_name %><br>
                 Posted: <%= photo.created_at.strftime("%d/%m/%Y %H:%M") %><br>
                   <a href="<%= photo_path(photo) %>" id="Show"> <img src="<%= photo.image_file_url%>"  width="600"</img></a><br>
+                  <%= photo.likes.length %> <%= photo.likes.length == 1 ? "Like" : "Likes" %>
+                  <% if user_has_liked_photo?(photo) %>
+                    <%= form_for([photo, like_for_current_user_and_post(photo)], method: :delete) do |like| %>
+                        <%= like.hidden_field :photo_id, value: photo.id %>
+                        <%= like.submit "Unlike Photo" %><br>
+                    <% end %>
+                  <% else %>
+                    <%= form_for([photo, photo.likes.build]) do |like| %>
+                        <%= like.submit "Like Photo" %><br>
+                    <% end %>
+                  <% end %>
+
                 <% if photo.comments.any?  %>
                   comments: <br>
                   <% photo.comments[0..2].each do |comment| %> <br>

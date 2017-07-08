@@ -13,16 +13,15 @@ class ApplicationController < ActionController::Base
 
   def user_has_liked_photo?( photo = @photo )
     return unless current_user
-    current_user.likes.any? { |like| like.photo.id == @photo.id }
+    current_user.likes.any? { |like| like.photo.id == photo.id }
   end
 
   helper_method :user_has_liked_photo?
 
   def like_for_current_user_and_post(photo = @photo)
-    Like.where(user: current_user, photo: @photo).first
+    Like.where(user: current_user, photo: photo).first
   end
 
   helper_method :like_for_current_user_and_post
-
 
 end

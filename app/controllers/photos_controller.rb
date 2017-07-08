@@ -9,11 +9,7 @@ class PhotosController < ApplicationController
         @user = current_user
         @photo = @user.photos.new(photo_params)
 
-        if @photo.save
-          redirect_to @photo
-        else
-          render :new
-        end
+        verify_photo_has_saved
 
     end
 
@@ -29,4 +25,13 @@ private
     def photo_params
         params.require(:photo).permit(:title, :image_file)
     end
+
+    def verify_photo_has_saved
+      if @photo.save
+        redirect_to @photo
+      else
+        render :new
+      end
+    end
+
 end
