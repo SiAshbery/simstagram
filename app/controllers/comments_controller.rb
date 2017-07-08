@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   def create
     @photo = Photo.find(params[:photo_id])
 
-    @comment = current_user.comments.create(comment_params)
+    @comment = current_user.comments.new(comment_params)
     @comment.photo = @photo
     @comment.save
     redirect_to photo_path(@photo)

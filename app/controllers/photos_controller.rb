@@ -7,10 +7,14 @@ class PhotosController < ApplicationController
 
     def create
         @user = current_user
-        @photo = @user.photos.create(photo_params)
- 
-        @photo.save
-        redirect_to @photo
+        @photo = @user.photos.new(photo_params)
+
+        if @photo.save
+          redirect_to @photo
+        else
+          render :new
+        end
+
     end
 
     def index
@@ -20,7 +24,7 @@ class PhotosController < ApplicationController
     def show
         @photo = Photo.find(params[:id])
     end
- 
+
 private
     def photo_params
         params.require(:photo).permit(:title, :image_file)

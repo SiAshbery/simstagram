@@ -4,8 +4,7 @@ RSpec.describe CommentsController, type: :controller do
 
   before(:each) do
       @photo = create(:photo)
-      @comment = @photo.comments.create(body: "New Comment")
-      @user = @comment.user = create(:user)
+      @user = create(:user)
       session[:user_id] = @user.id
   end
 
@@ -13,9 +12,9 @@ RSpec.describe CommentsController, type: :controller do
 
       it "has a 302 status code" do
           post :create, params: {
-            photo_id: @comment.photo.id,
+            photo_id: @photo.id,
             comment: {
-              body: @comment.body
+              body: "Test Comment"
             }
           }
           expect(response.status).to eq(302)
@@ -23,9 +22,9 @@ RSpec.describe CommentsController, type: :controller do
 
       it "redirects to show" do
           post :create, params: {
-            photo_id: @comment.photo.id,
+            photo_id: @photo.id,
             comment: {
-              body: @comment.body
+              body: "Test Comment"
             }
           }
           expect(response).to redirect_to("/photos/#{most_recent_photo.id}")
@@ -33,9 +32,9 @@ RSpec.describe CommentsController, type: :controller do
 
       it "assigns @comment" do
           post :create, params: {
-            photo_id: @comment.photo.id,
+            photo_id: @photo.id,
             comment: {
-              body: @comment.body
+              body: "Test Comment"
             }
           }
           expect(assigns(:comment)).to eq(most_recent_comment)
