@@ -2,7 +2,7 @@ def log_out
     visit("/session/destroy")
 end
 
-def sign_up (display_name = "Test_User", 
+def sign_up (display_name = "Test_User",
              email = "test@email.com",
              password = "password",
              password_confirmation = "password")
@@ -13,7 +13,7 @@ def sign_up (display_name = "Test_User",
     fill_in "user_email", with: email
     fill_in "user_password", with: password
     fill_in "user_password_confirmation", with: password_confirmation
-    click_button "Submit" 
+    click_button "Submit"
 end
 
 def log_in (email = "test@email.com",
@@ -42,3 +42,15 @@ def show_image
     end
 end
 
+def post_comment_with_image(body = "Test Comment")
+  post_image
+  fill_in "comment_body", with: body
+  click_button "Create Comment"
+end
+
+def post_comment_without_image(body = "Test Comment")
+  visit("/")
+  click_link("Show")
+  fill_in "comment_body", with: body
+  click_button "Create Comment"
+end

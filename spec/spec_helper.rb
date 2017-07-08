@@ -17,11 +17,12 @@ RSpec.configure do |config|
   require 'factory_girl_rails'
   require 'test_helpers/photo_helpers_spec'
   require 'test_helpers/user_helpers_spec'
+  require 'test_helpers/comment_helpers_spec'
 
   config.after(:each) do
     if Rails.env.test? || Rails.env.cucumber?
       FileUtils.rm_rf(Dir["#{Rails.root}/spec/support/uploads"])
-    end 
+    end
   end
     config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
@@ -33,6 +34,8 @@ RSpec.configure do |config|
       example.run
     end
   end
+
+  config.formatter = :documentation
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -94,7 +97,7 @@ RSpec.configure do |config|
     # Use the documentation formatter for detailed output,
     # unless a formatter has already been configured
     # (e.g. via a command-line flag).
-    config.default_formatter = "doc"
+    # config.default_formatter = "doc"
   end
 
   # Print the 10 slowest examples and example groups at the
