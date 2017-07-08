@@ -15,6 +15,17 @@
                 <%= photo.title %> by <%= photo.user.display_name %><br>
                 Posted: <%= photo.created_at.strftime("%d/%m/%Y %H:%M") %><br>
                   <a href="<%= photo_path(photo) %>" id="Show"> <img src="<%= photo.image_file_url%>"  width="600"</img></a><br>
+                <% if photo.comments.any?  %>
+                  comments: <br>
+                  <% photo.comments[0..2].each do |comment| %> <br>
+                  <%= comment.user.display_name %> said:<br>
+                  <%= comment.body %><br>
+                  <% end %>
+                  <% if photo.comments.length > 3 %>
+                    ...<br>
+                    <a href="<%= photo_path(photo) %>" id="Show_More">Show More</a>
+                  <% end %>
+                <% end %>
             </li>
         </ul>
     <%end%>
