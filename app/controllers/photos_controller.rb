@@ -18,13 +18,12 @@ class PhotosController < ApplicationController
     end
 
     def show
-        @photo = Photo.find(params[:id])
+        find_photo
     end
 
     def destroy
-      @photo = Photo.find(params[:id])
-      @photo.destroy
-
+      find_photo
+      @photo.destroy if photo_belongs_to_user?
       redirect_to "/"
     end
 
@@ -39,6 +38,10 @@ private
       else
         render :new
       end
+    end
+
+    def find_photo
+      @photo = Photo.find(params[:id])
     end
 
 end

@@ -1,9 +1,10 @@
 <h2><%= @photo.title %> by <%= @photo.user.display_name %><br></h2>
   Posted: <%= @photo.created_at.strftime("%d/%m/%Y %H:%M") %><br>
   <%= button_to 'Go Back', '/photos', method: :get %><br>
-  <%= form_for(@photo, method: :delete) do |photo| %>
-      <%= photo.hidden_field :photo_id, value: @photo.id %>
-      <%= photo.submit "Delete Photo" %><br>
+  <% if photo_belongs_to_user? %>
+    <%= form_for(@photo, method: :delete) do |photo| %>
+        <%= photo.submit "Delete Photo" %><br>
+    <% end %>
   <% end %>
 
   <img src="<%= @photo.image_file_url %>" id="photo_image"></img> <br>
