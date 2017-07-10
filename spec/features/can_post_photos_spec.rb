@@ -89,11 +89,22 @@ RSpec.feature "Post a Photo", type: :feature do
   end
 
   describe "Deleting a Photo" do
-    scenario "Users can delete a photo they own" do
+
+    scenario "Users can delete a photo" do
       post_image
       click_button("Delete Photo")
       expect(page).not_to have_content("New Photo")
       expect(page).not_to have_xpath("//img[contains(@src,'test_image.png')]")
     end
+
+    scenario "Users can't delete a photo they don't own" do
+      post_image
+      log_out
+      sign_up("New_user", "new@email.com")
+      visit("/")
+      click_link("Show")
+      expect(page).not_to have_button("Delete Photo")
+    end
+
   end
 end
