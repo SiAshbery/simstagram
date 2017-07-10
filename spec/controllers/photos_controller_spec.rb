@@ -5,7 +5,7 @@ RSpec.describe PhotosController, type: :controller do
 
     before(:each) do
         @user = create(:user)
-        @user.photos.create({title: "New Photo", image_file: upload_file  })
+        @photo = @user.photos.create({title: "New Photo", image_file: upload_file  })
         session[:user_id] = @user.id
     end
 
@@ -76,6 +76,20 @@ RSpec.describe PhotosController, type: :controller do
             post :create, params: { photo: {title: "New Photo", image_file: upload_file  } }
             expect(assigns(:photo)).to eq(most_recent_photo)
         end
+
+    end
+
+    describe "DELETE Destroy" do
+
+      it "Returns a 200 status" do
+        delete :destroy, params: { id: @photo.id }
+        expect(response.status).to eq(302)
+      end
+
+      it "Deletes like" do
+        delete :destroy, params: { id: @photo.id }
+        expect(Photo.last).not_to eq(@photo)
+      end
 
     end
 
