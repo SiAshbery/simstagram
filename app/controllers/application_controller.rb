@@ -24,4 +24,11 @@ class ApplicationController < ActionController::Base
 
   helper_method :like_for_current_user_and_post
 
+  def photo_belongs_to_user?(photo = @photo)
+    return unless current_user
+    current_user.id == @photo.user.id
+  end
+
+  helper_method :photo_belongs_to_user?
+
 end

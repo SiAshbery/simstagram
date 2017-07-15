@@ -37,7 +37,7 @@ RSpec.describe LikesController, type: :controller do
 
   describe "DELETE Destroy" do
 
-    it "Returns a 200 status" do
+    it "Returns a 302 status" do
       delete :destroy, params: {
         photo_id: @photo.id,
         id: @like.id
