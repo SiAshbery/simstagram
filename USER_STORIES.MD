@@ -7,12 +7,6 @@ I want to see error messages when I can't complete an action
 ```
 
 ```
-As a remorseful user
-So I can erase my shame
-I want to edit and delete my comments
-```
-
-```
 As a user
 So I can show the world how wonderful and artistic I am
 I want a profile page with all my photos
@@ -31,6 +25,12 @@ I want to add filters to my photos
 ```
 
 # Complete:
+
+```
+As a remorseful user
+So I can erase my shame
+I want to edit and delete my comments
+```
 
 ```
 As a remorseful user
