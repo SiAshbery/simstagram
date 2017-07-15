@@ -5,7 +5,7 @@ RSpec.describe PhotosController, type: :controller do
 
     before(:each) do
         @user = create(:user)
-        @user.photos.create({title: "New Photo", image_file: upload_file  })
+        @photo = @user.photos.create({title: "New Photo", image_file: upload_file  })
         session[:user_id] = @user.id
     end
 
@@ -76,6 +76,54 @@ RSpec.describe PhotosController, type: :controller do
             post :create, params: { photo: {title: "New Photo", image_file: upload_file  } }
             expect(assigns(:photo)).to eq(most_recent_photo)
         end
+
+    end
+
+    describe "DELETE Destroy" do
+
+      it "Returns a 302 status" do
+        delete :destroy, params: { id: @photo.id }
+        expect(response.status).to eq(302)
+      end
+
+      it "Deletes Photo" do
+        delete :destroy, params: { id: @photo.id }
+        expect(Photo.last).not_to eq(@photo)
+      end
+
+      it "Won't delete photo if it doesn't belong to the current_user" do
+        @user_02 = create(:user)
+        session[:user_id] = @user_02.id
+        delete :destroy, params: { id: @photo.id }
+        expect(Photo.last).to eq(@photo)
+      end
+
+    end
+
+    describe "UPDATE edit" do
+
+      it "Returns a 302 status" do
+        patch :update, params: { id: @photo.id, photo: { title: "Updated Photo" } }
+        expect(response.status).to eq(302)
+      end
+
+      it "redirects to show" do
+        patch :update, params: { id: @photo.id, photo: { title: "Updated Photo" } }
+        expect(response).to redirect_to("/")
+      end
+
+      it "Updates @photo" do
+        patch :update, params: { id: @photo.id, photo: { title: "Updated Photo" } }
+        expect(assigns(:photo)).to eq(@photo)
+        expect(Photo.find(@photo.id).title).to eq("Updated Photo")
+      end
+
+      it "Won't update a photo if it doesn't belong to the current_user" do
+        @user_02 = create(:user)
+        session[:user_id] = @user_02.id
+        patch :update, params: { id: @photo.id, photo: { title: "Updated Photo" } }
+        expect(Photo.find(@photo.id).title).not_to eq("Updated Photo")
+      end
 
     end
 

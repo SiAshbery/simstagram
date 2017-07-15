@@ -1,0 +1,18 @@
+<h1>Edit Photo</h1>
+
+<%= form_for @photo, method: :patch do |photo| %>
+    <p>
+        <%= photo.label :title %><br>
+        <%= photo.text_field :title %>
+    </p>
+
+    <p>
+        <%= photo.label :image_file %><br>
+        <%= photo.file_field :image_file %>
+        <%= photo.hidden_field :image_file_cache %>
+    </p>
+
+    <p>
+        <%= photo.submit "Save Changes"%>
+    </p>
+<% end %>
