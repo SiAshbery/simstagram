@@ -81,12 +81,12 @@ RSpec.describe PhotosController, type: :controller do
 
     describe "DELETE Destroy" do
 
-      it "Returns a 200 status" do
+      it "Returns a 302 status" do
         delete :destroy, params: { id: @photo.id }
         expect(response.status).to eq(302)
       end
 
-      it "Deletes like" do
+      it "Deletes Photo" do
         delete :destroy, params: { id: @photo.id }
         expect(Photo.last).not_to eq(@photo)
       end
@@ -96,6 +96,33 @@ RSpec.describe PhotosController, type: :controller do
         session[:user_id] = @user_02.id
         delete :destroy, params: { id: @photo.id }
         expect(Photo.last).to eq(@photo)
+      end
+
+    end
+
+    describe "UPDATE edit" do
+
+      it "Returns a 302 status" do
+        patch :update, params: { id: @photo.id, photo: { title: "Updated Photo" } }
+        expect(response.status).to eq(302)
+      end
+
+      it "redirects to show" do
+        patch :update, params: { id: @photo.id, photo: { title: "Updated Photo" } }
+        expect(response).to redirect_to("/")
+      end
+
+      it "Updates @photo" do
+        patch :update, params: { id: @photo.id, photo: { title: "Updated Photo" } }
+        expect(assigns(:photo)).to eq(@photo)
+        expect(Photo.find(@photo.id).title).to eq("Updated Photo")
+      end
+
+      it "Won't update a photo if it doesn't belong to the current_user" do
+        @user_02 = create(:user)
+        session[:user_id] = @user_02.id
+        patch :update, params: { id: @photo.id, photo: { title: "Updated Photo" } }
+        expect(Photo.find(@photo.id).title).not_to eq("Updated Photo")
       end
 
     end

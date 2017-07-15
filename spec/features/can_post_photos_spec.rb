@@ -107,4 +107,25 @@ RSpec.feature "Post a Photo", type: :feature do
     end
 
   end
+
+  describe "Editing a Photo" do
+
+    scenario "Users can Edit a photo" do
+      post_image
+      click_button("Edit Photo")
+      fill_in "photo_title", with: "New Title"
+      click_button("Save Changes")
+      expect(page).to have_content("New Title")
+    end
+
+    scenario "Users can't Edit a photo they don't own" do
+      post_image
+      log_out
+      sign_up("New_user", "new@email.com")
+      visit("/")
+      click_link("Show")
+      expect(page).not_to have_button("Edit Photo")
+    end
+
+  end
 end
