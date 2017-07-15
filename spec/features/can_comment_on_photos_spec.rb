@@ -116,4 +116,15 @@ RSpec.feature "Comment on Photo", type: :feature do
     end
   end
 
+  describe "Editing Comments on Show" do
+
+    scenario "Can Edit a comment" do
+      post_comment_with_image
+      click_button("Edit Comment")
+      fill_in "comment_body", with: "Updated Comment"
+      click_button("Save Changes")
+      expect(page).to have_content("Updated Comment")
+    end
+  end
+
 end
