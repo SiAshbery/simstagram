@@ -99,4 +99,21 @@ RSpec.feature "Comment on Photo", type: :feature do
     end
   end
 
+
+  describe "Deleting Comments on Index" do
+
+    scenario "Can Delete a comment" do
+      post_comment_with_image
+      visit("/")
+      click_button("Delete Comment")
+      expect(page).not_to have_content("Test_User said: Test Comment")
+    end
+
+    scenario "Can't Delete a comment if it does not belong to user" do
+      post_comment_with_image
+      log_out
+      expect(page).not_to have_button("Delete Comment")
+    end
+  end
+
 end
