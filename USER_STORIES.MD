@@ -13,18 +13,18 @@ I want a profile page with all my photos
 ```
 
 ```
-As a revisionist user
-So I can alter history
-I want to edit my comments
-```
-
-```
 As a creatively bankrupt user
 So I can simulate artistic ability
 I want to add filters to my photos
 ```
 
 # Complete:
+
+```
+As a revisionist user
+So I can alter history
+I want to edit my comments
+```
 
 ```
 As a remorseful user
