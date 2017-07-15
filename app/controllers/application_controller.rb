@@ -31,4 +31,11 @@ class ApplicationController < ActionController::Base
 
   helper_method :photo_belongs_to_user?
 
+  def comment_belongs_to_user?(comment = @comment)
+    return unless current_user
+    current_user.id == comment.user.id
+  end
+
+  helper_method :comment_belongs_to_user?
+
 end
