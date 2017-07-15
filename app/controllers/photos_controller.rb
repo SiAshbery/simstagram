@@ -1,24 +1,30 @@
 class PhotosController < ApplicationController
 
-    before_action :authorize, only: [:create, :new]
+    before_action :authorize, only: [:create, :new, :destroy, :update]
 
     def new
     end
 
+    def edit
+      find_photo
+    end
+
+    def update
+      find_photo
+      photo_belongs_to_user? ? verify_photo_has_updated : redirect_to("/")
+    end
+
     def create
-        @user = current_user
-        @photo = @user.photos.new(photo_params)
-
-        verify_photo_has_saved
-
+      @photo = current_user.photos.new(photo_params)
+      verify_photo_has_saved
     end
 
     def index
-        @photos = Photo.all
+      @photos = Photo.all
     end
 
     def show
-        find_photo
+      find_photo
     end
 
     def destroy
@@ -29,7 +35,7 @@ class PhotosController < ApplicationController
 
 private
     def photo_params
-        params.require(:photo).permit(:title, :image_file)
+      params.require(:photo).permit(:title, :image_file)
     end
 
     def verify_photo_has_saved
@@ -40,8 +46,17 @@ private
       end
     end
 
+    def verify_photo_has_updated
+      if @photo.update_attributes(photo_params)
+        redirect_to "/"
+      else
+        render 'edit'
+      end
+    end
+
     def find_photo
       @photo = Photo.find(params[:id])
     end
+
 
 end
