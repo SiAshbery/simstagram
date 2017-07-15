@@ -1,0 +1,12 @@
+<h1>Edit Comment</h1>
+
+<%= form_for [@comment.photo, @comment], method: :patch do |edit| %>
+    <p>
+        <%= edit.label :body %><br>
+        <%= edit.text_field :body %>
+    </p>
+
+    <p>
+        <%= edit.submit "Save Changes"%>
+    </p>
+<% end %>

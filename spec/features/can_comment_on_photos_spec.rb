@@ -116,4 +116,40 @@ RSpec.feature "Comment on Photo", type: :feature do
     end
   end
 
+  describe "Editing Comments on Show" do
+
+    scenario "Can Edit a comment" do
+      post_comment_with_image
+      click_button("Edit Comment")
+      fill_in "comment_body", with: "Updated Comment"
+      click_button("Save Changes")
+      expect(page).to have_content("Updated Comment")
+    end
+
+    scenario "Can't Edit a comment that does not belong to user" do
+      post_comment_with_image
+      log_out
+      click_link("Show")
+      expect(page).not_to have_content("Updated Comment")
+    end
+  end
+
+  describe "Editing Comments on Index" do
+
+    scenario "Can Edit a comment" do
+      post_comment_with_image
+      visit("/")
+      click_button("Edit Comment")
+      fill_in "comment_body", with: "Updated Comment"
+      click_button("Save Changes")
+      expect(page).to have_content("Updated Comment")
+    end
+
+    scenario "Can't Edit a comment that does not belong to user" do
+      post_comment_with_image
+      log_out
+      expect(page).not_to have_content("Updated Comment")
+    end
+  end
+
 end
