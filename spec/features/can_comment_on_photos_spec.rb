@@ -71,7 +71,7 @@ RSpec.feature "Comment on Photo", type: :feature do
     expect(page).not_to have_content("Test_User said: fourth")
   end
 
-  scenario "Gives option toview more comments when there are more than 3" do
+  scenario "Gives option to view more comments when there are more than 3" do
     post_comment_with_image
     post_comment_without_image("second")
     post_comment_without_image("third")
@@ -81,6 +81,22 @@ RSpec.feature "Comment on Photo", type: :feature do
     expect(page).to have_content("Show More")
     click_link("Show More")
     expect(page).to have_content("fourth")
+  end
+
+  describe "Deleting Comments on Show" do
+
+    scenario "Can Delete a comment" do
+      post_comment_with_image
+      click_button("Delete Comment")
+      expect(page).not_to have_content("Test_User said: Test Comment")
+    end
+
+    scenario "Can't Delete a comment if it does not belong to user" do
+      post_comment_with_image
+      log_out
+      click_link("Show")
+      expect(page).not_to have_button("Delete Comment")
+    end
   end
 
 end

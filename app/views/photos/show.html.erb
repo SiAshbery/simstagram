@@ -30,6 +30,11 @@
     <%= comment.user.display_name %> said:<br>
     <%= comment.body %><br>
     at <%= comment.created_at.strftime("%H:%M") %> on <%= comment.created_at.strftime("%d/%m/%Y") %>
+    <% if comment_belongs_to_user?(comment) %>
+      <%= form_for([@photo,comment], method: :delete) do |comment| %>
+        <%= comment.submit "Delete Comment" %><br>
+      <% end %>
+    <% end %>
     <br>
   <% end %>
 <% end %>
