@@ -1,4 +1,4 @@
-<h2><%= @photo.title %> by <%= @photo.user.display_name %><br></h2>
+<h2><%= @photo.title %> by <a href="<%= user_path(@photo.user) %>" id="Show User"><%= @photo.user.display_name %></a><br></h2>
   Posted: <%= @photo.created_at.strftime("%d/%m/%Y %H:%M") %><br>
   <%= button_to 'Go Back', '/photos', method: :get %><br>
   <% if photo_belongs_to_user? %>
@@ -26,20 +26,24 @@
 
 <% if @photo.comments.any? %>
   <h2>Comments:</h2><br>
+  <ul>
   <% @photo.comments.each do |comment| %>
-    <%= comment.user.display_name %> said:<br>
-    <%= comment.body %><br>
-    at <%= comment.created_at.strftime("%H:%M") %> on <%= comment.created_at.strftime("%d/%m/%Y") %>
-    <% if comment_belongs_to_user?(comment) %>
-      <%= form_for([@photo,comment], method: :delete) do |comment| %>
-        <%= comment.submit "Delete Comment" %><br>
+    <li id="comment_<%= comment.id %>">
+      <a href="<%= user_path(comment.user) %>" id="Show User"><%= comment.user.display_name %></a> said:<br>
+      <%= comment.body %><br>
+      at <%= comment.created_at.strftime("%H:%M") %> on <%= comment.created_at.strftime("%d/%m/%Y") %>
+      <% if comment_belongs_to_user?(comment) %>
+        <%= form_for([@photo,comment], method: :delete) do |comment| %>
+          <%= comment.submit "Delete Comment" %>
+        <% end %>
+        <%= form_for([:edit, @photo, comment], method: :get) do |photo| %>
+            <%= photo.submit "Edit Comment" %>
+        <% end %>
       <% end %>
-      <%= form_for([:edit, @photo, comment], method: :get) do |photo| %>
-          <%= photo.submit "Edit Comment" %><br>
-      <% end %>
+      <br><br>
+    </li>
     <% end %>
-    <br>
-  <% end %>
+  </ul>
 <% end %>
 
 <h2>Add a comment:</h2>
