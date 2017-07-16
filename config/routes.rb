@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   post '/session/new' => 'sessions#create'
   get  '/session/destroy' => 'sessions#destroy'
 
-  get  '/users/new' => 'users#new'
-  post '/users' => 'users#create'
+  resources :users
 
 end
