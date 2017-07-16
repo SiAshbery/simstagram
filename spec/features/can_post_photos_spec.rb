@@ -20,7 +20,7 @@ RSpec.feature "Post a Photo", type: :feature do
       visit("/")
       click_button ("New Photo")
       attach_file("photo_image_file", Rails.root + "spec/support/images/test_image.png")
-      click_button "Save Photo"
+      click_button "Save"
       expect(page).not_to have_content("New Photo")
     end
 
@@ -29,7 +29,7 @@ RSpec.feature "Post a Photo", type: :feature do
       visit("/")
       click_button ("New Photo")
       fill_in "photo_title", with: "New Photo"
-      click_button "Save Photo"
+      click_button "Save"
       expect(page).not_to have_content("New Photo")
     end
 
@@ -114,7 +114,7 @@ RSpec.feature "Post a Photo", type: :feature do
       post_image
       click_button("Edit Photo")
       fill_in "photo_title", with: "New Title"
-      click_button("Save Changes")
+      click_button("Save")
       expect(page).to have_content("New Title")
     end
 

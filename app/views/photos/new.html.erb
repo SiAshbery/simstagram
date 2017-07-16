@@ -1,16 +1,5 @@
-<%= form_for :photo, url: photos_path do |photo| %>
-    <p>
-        <%= photo.label :title %><br>
-        <%= photo.text_field :title %>
-    </p>
- 
-    <p>
-        <%= photo.label :image_file %><br>
-        <%= photo.file_field :image_file %>
-        <%= photo.hidden_field :image_file_cache %>
-    </p>
- 
-    <p>
-        <%= photo.submit %>
-    </p>
-<% end %>
+<h1>Post Photo</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', photos_path %>
