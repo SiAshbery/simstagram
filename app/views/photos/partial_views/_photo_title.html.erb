@@ -1,0 +1,7 @@
+<% if heading_1 %>
+  <h1> <%= photo.title %> by <a href="<%= user_path(photo.user) %>" id="Show User">
+    <%= photo.user.display_name %> </a><br> </h1>
+<% else %>
+  <%= photo.title %> by <a href="<%= user_path(photo.user) %>" id="Show User">
+    <%= photo.user.display_name %> </a><br>
+<% end %>

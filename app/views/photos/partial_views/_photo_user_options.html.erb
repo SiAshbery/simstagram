@@ -1,0 +1,8 @@
+<% if photo_belongs_to_user?(photo) %>
+  <%= form_for(photo, method: :delete) do |photo| %>
+    <%= photo.submit "Delete Photo" %><br>
+  <% end %>
+  <%= form_for(photo, url: edit_photo_path, method: :get) do |photo| %>
+    <%= photo.submit "Edit Photo" %><br>
+  <% end %>
+<% end %>

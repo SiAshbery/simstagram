@@ -1,0 +1,7 @@
+<h1>Simstagram!</h1>
+<%= button_to 'Home', '/', method: :get %>
+<% if current_user %>
+  <%= render "shared/signed_in_navigation" %>
+<% else %>
+  <%= render "shared/signed_out_navigation" %>
+<% end %>

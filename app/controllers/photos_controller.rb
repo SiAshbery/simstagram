@@ -3,6 +3,7 @@ class PhotosController < ApplicationController
     before_action :authorize, only: [:create, :new, :destroy, :update]
 
     def new
+      @photo = Photo.new
     end
 
     def edit

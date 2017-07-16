@@ -1,0 +1,10 @@
+<h2>Add a comment:</h2>
+  <%= form_for([photo, photo.comments.build]) do |comment| %>
+    <p>
+      <%= comment.label :body %><br>
+      <%= comment.text_area :body %>
+    </p>
+    <p>
+      <%= comment.submit %>
+    </p>
+<% end %>
