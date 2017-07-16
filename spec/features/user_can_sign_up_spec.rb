@@ -4,7 +4,7 @@ RSpec.feature "User Signup", type: :feature do
 
   scenario "Users can Sign Up" do
     sign_up
-    expect(page).to have_content("Welcome to Simstagram Test_User!")
+    expect(page).to have_content("Welcome Test_User!")
   end
 
   scenario "Can't sign up if password doesn't match confirmation" do

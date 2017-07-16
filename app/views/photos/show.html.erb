@@ -1,58 +1,8 @@
-<h2><%= @photo.title %> by <a href="<%= user_path(@photo.user) %>" id="Show User"><%= @photo.user.display_name %></a><br></h2>
-  Posted: <%= @photo.created_at.strftime("%d/%m/%Y %H:%M") %><br>
-  <%= button_to 'Go Back', '/photos', method: :get %><br>
-  <% if photo_belongs_to_user? %>
-    <%= form_for(@photo, method: :delete) do |photo| %>
-        <%= photo.submit "Delete Photo" %><br>
-    <% end %>
-    <%= form_for(@photo, url: edit_photo_path, method: :get) do |photo| %>
-        <%= photo.submit "Edit Photo" %><br>
-    <% end %>
-  <% end %>
-
-  <img src="<%= @photo.image_file_url %>" id="photo_image"></img> <br>
-
-  <%= @photo.likes.length %> <%= @photo.likes.length == 1 ? "Like" : "Likes" %>
-    <% if user_has_liked_photo? %>
-      <%= form_for([@photo, like_for_current_user_and_post], method: :delete) do |like| %>
-          <%= like.submit "Unlike Photo" %><br>
-      <% end %>
-    <% else %>
-      <%= form_for([@photo, @photo.likes.build]) do |like| %>
-          <%= like.submit "Like Photo" %><br>
-      <% end %>
-    <% end %>
-
-
-<% if @photo.comments.any? %>
-  <h2>Comments:</h2><br>
-  <ul>
-  <% @photo.comments.each do |comment| %>
-    <li id="comment_<%= comment.id %>">
-      <a href="<%= user_path(comment.user) %>" id="Show User"><%= comment.user.display_name %></a> said:<br>
-      <%= comment.body %><br>
-      at <%= comment.created_at.strftime("%H:%M") %> on <%= comment.created_at.strftime("%d/%m/%Y") %>
-      <% if comment_belongs_to_user?(comment) %>
-        <%= form_for([@photo,comment], method: :delete) do |comment| %>
-          <%= comment.submit "Delete Comment" %>
-        <% end %>
-        <%= form_for([:edit, @photo, comment], method: :get) do |photo| %>
-            <%= photo.submit "Edit Comment" %>
-        <% end %>
-      <% end %>
-      <br><br>
-    </li>
-    <% end %>
-  </ul>
-<% end %>
-
-<h2>Add a comment:</h2>
-  <%= form_for([@photo, @photo.comments.build]) do |comment| %>
-    <p>
-      <%= comment.label :body %><br>
-      <%= comment.text_area :body %>
-    </p>
-    <p>
-      <%= comment.submit %>
-    </p>
-<% end %>
+<%= render "shared/navigation_menu" %>
+<%= render "photos/partial_views/photo_content", photo: @photo, heading_1: true,
+            size: 1024 %>
+<%= render "photos/partial_views/photo_user_options", photo: @photo %>
+<%= render "photos/partial_views/photo_likes", photo: @photo %>
+<%= render "photos/partial_views/list_of_photo_comments",
+            photo: @photo, range: 0..-1, render_more: false %>
+<%= render "photos/partial_views/new_photo_comment", photo: @photo %>
