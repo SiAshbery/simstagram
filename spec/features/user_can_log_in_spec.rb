@@ -6,7 +6,7 @@ RSpec.feature "User Log In", type: :feature do
     sign_up
     log_out
     log_in
-    expect(page).to have_content("Welcome to Simstagram Test_User!")
+    expect(page).to have_content("Welcome Test_User!")
   end
 
   scenario "Can't log in if password is wrong" do

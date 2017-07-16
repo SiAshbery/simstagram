@@ -1,0 +1,13 @@
+<%if @photos.any? %>
+  <ul>
+    <% @photos.each do |photo|%>
+            <li id="<%= photo.id %>">
+              <%= render "photos/partial_views/photo_content", photo: photo,
+                          heading_1: false, size: size %>
+              <%= render "photos/partial_views/photo_likes", photo: photo %>
+              <%= render "photos/partial_views/list_of_photo_comments",
+                          photo: photo, range: 0..2, render_more: true %>
+            </li>
+            <%end%>
+    </ul>
+<%end%>

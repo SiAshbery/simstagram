@@ -1,0 +1,8 @@
+<% if comment_belongs_to_user?(comment) %>
+  <%= form_for([photo,comment], method: :delete) do |comment| %>
+    <%= comment.submit "Delete Comment" %><br>
+  <% end %>
+  <%= form_for([:edit, photo, comment], method: :get) do |photo| %>
+    <%= photo.submit "Edit Comment" %><br>
+  <% end %>
+<% end %>

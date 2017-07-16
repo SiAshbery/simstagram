@@ -1,54 +1,5 @@
-<% if current_user %>
-    <h1> Welcome to Simstagram <%= current_user.display_name %>! </h1>
-    <%= button_to 'New Photo', new_photo_path, method: :get %><br>
-    <%= button_to 'Log Out', '/session/destroy', method: :get %><br>
-<% else %>
-    <h1> Welcome to Simstagram! </h1>
-    <%= button_to 'Sign Up', '/users/new', method: :get %><br>
-    <%= button_to 'Log In', '/session/new', method: :get %><br>
-<% end %>
+<%= render "shared/navigation_menu" %>
 
-<%if @photos.any? %>
-  <ul>
-    <% @photos.each do |photo|%>
-            <li id="<%= photo.id %>">
-                    <%= photo.title %> by <a href="<%= user_path(photo.user) %>" id="Show User"><%= photo.user.display_name %></a><br>
-                Posted: <%= photo.created_at.strftime("%d/%m/%Y %H:%M") %><br>
-                  <a href="<%= photo_path(photo) %>" id="Show"> <img src="<%= photo.image_file_url%>"  width="600"</img></a><br>
-                  <%= photo.likes.length %> <%= photo.likes.length == 1 ? "Like" : "Likes" %>
-                  <% if user_has_liked_photo?(photo) %>
-                    <%= form_for([photo, like_for_current_user_and_post(photo)], method: :delete) do |like| %>
-                        <%= like.hidden_field :photo_id, value: photo.id %>
-                        <%= like.submit "Unlike Photo" %><br>
-                    <% end %>
-                  <% else %>
-                    <%= form_for([photo, photo.likes.build]) do |like| %>
-                        <%= like.submit "Like Photo" %><br>
-                    <% end %>
-                  <% end %>
+<%= render 'index_header' %>
 
-                <% if photo.comments.any?  %>
-                  comments: <br>
-                  <ul>
-                    <% photo.comments[0..2].each do |comment| %> <br>
-                      <li id="comment_<%= comment.id %>">
-                        <a href="<%= user_path(comment.user) %>" id="Show User"><%= comment.user.display_name %></a> said:<br>
-                        <%= comment.body %><br>
-                        <% if comment_belongs_to_user?(comment) %>
-                          <%= form_for([photo,comment], method: :delete) do |comment| %>
-                            <%= comment.submit "Delete Comment" %><br>
-                          <% end %>
-                          <%= form_for([:edit, photo, comment], method: :get) do |photo| %>
-                            <%= photo.submit "Edit Comment" %><br>
-                          <% end %>
-                      <% end %>
-                    <% end %>
-                  </li>
-                    <% if photo.comments.length > 3 %>
-                      <a href="<%= photo_path(photo) %>" id="Show_More">...</a>
-                    <% end %>
-                <% end %>
-            </li>
-            <%end%>
-    </ul>
-<%end%>
+<%= render "photos/partial_views/list_of_photos", size: 600 %>
