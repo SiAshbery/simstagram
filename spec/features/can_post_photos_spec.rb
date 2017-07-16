@@ -47,7 +47,7 @@ RSpec.feature "Post a Photo", type: :feature do
       post_image
       post_image("Second", "test_image_2.png")
       visit("/")
-      expect("Second by Test_User").to appear_before("New Photo by Test_User")
+      expect("Second by").to appear_before("New Photo by")
     end
 
     scenario "Photos show their created at date on index" do
