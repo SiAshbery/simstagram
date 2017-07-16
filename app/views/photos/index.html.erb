@@ -9,10 +9,10 @@
 <% end %>
 
 <%if @photos.any? %>
-    <% @photos.reverse.each do |photo|%>
+    <% @photos.each do |photo|%>
         <ul>
             <li id="<%= photo.id %>">
-                <%= photo.title %> by <%= photo.user.display_name %><br>
+                    <%= photo.title %> by <a href="<%= user_path(photo.user) %>" id="Show User"><%= photo.user.display_name %></a><br>
                 Posted: <%= photo.created_at.strftime("%d/%m/%Y %H:%M") %><br>
                   <a href="<%= photo_path(photo) %>" id="Show"> <img src="<%= photo.image_file_url%>"  width="600"</img></a><br>
                   <%= photo.likes.length %> <%= photo.likes.length == 1 ? "Like" : "Likes" %>
