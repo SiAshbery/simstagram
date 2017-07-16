@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 
     def show
       find_user
+      @photos = @user.photos.order("created_at DESC")
     end
 
     private
