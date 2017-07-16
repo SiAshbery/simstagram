@@ -9,8 +9,8 @@
 <% end %>
 
 <%if @photos.any? %>
+  <ul>
     <% @photos.each do |photo|%>
-        <ul>
             <li id="<%= photo.id %>">
                     <%= photo.title %> by <a href="<%= user_path(photo.user) %>" id="Show User"><%= photo.user.display_name %></a><br>
                 Posted: <%= photo.created_at.strftime("%d/%m/%Y %H:%M") %><br>
@@ -29,24 +29,26 @@
 
                 <% if photo.comments.any?  %>
                   comments: <br>
-                  <% photo.comments[0..2].each do |comment| %> <br>
-                  <%= comment.user.display_name %> said:<br>
-                  <%= comment.body %><br>
-                  <% if comment_belongs_to_user?(comment) %>
-                    <%= form_for([photo,comment], method: :delete) do |comment| %>
-                      <%= comment.submit "Delete Comment" %><br>
+                  <ul>
+                    <% photo.comments[0..2].each do |comment| %> <br>
+                      <li id="comment_<%= comment.id %>">
+                        <a href="<%= user_path(comment.user) %>" id="Show User"><%= comment.user.display_name %></a> said:<br>
+                        <%= comment.body %><br>
+                        <% if comment_belongs_to_user?(comment) %>
+                          <%= form_for([photo,comment], method: :delete) do |comment| %>
+                            <%= comment.submit "Delete Comment" %><br>
+                          <% end %>
+                          <%= form_for([:edit, photo, comment], method: :get) do |photo| %>
+                            <%= photo.submit "Edit Comment" %><br>
+                          <% end %>
+                      <% end %>
                     <% end %>
-                    <%= form_for([:edit, photo, comment], method: :get) do |photo| %>
-                        <%= photo.submit "Edit Comment" %><br>
+                  </li>
+                    <% if photo.comments.length > 3 %>
+                      <a href="<%= photo_path(photo) %>" id="Show_More">...</a>
                     <% end %>
-                  <% end %>
-                  <% end %>
-                  <% if photo.comments.length > 3 %>
-                    ...<br>
-                    <a href="<%= photo_path(photo) %>" id="Show_More">Show More</a>
-                  <% end %>
                 <% end %>
             </li>
-        </ul>
-    <%end%>
+            <%end%>
+    </ul>
 <%end%>

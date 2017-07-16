@@ -78,8 +78,8 @@ RSpec.feature "Comment on Photo", type: :feature do
     expect(page).not_to have_content("Show More")
     post_comment_without_image("fourth")
     visit("/")
-    expect(page).to have_content("Show More")
-    click_link("Show More")
+    expect(page).to have_content("...")
+    click_link("Show_More")
     expect(page).to have_content("fourth")
   end
 
