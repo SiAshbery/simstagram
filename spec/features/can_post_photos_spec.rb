@@ -70,8 +70,8 @@ RSpec.feature "Post a Photo", type: :feature do
 
     scenario "Can go back to index from show" do
       show_image
-      click_button("Go Back")
-      expect(current_path).to eq("/photos")
+      click_button("Home")
+      expect(current_path).to eq("/")
     end
 
     scenario "Can't post photo unless logged in" do
