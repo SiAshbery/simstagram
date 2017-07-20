@@ -5,4 +5,6 @@
 <%= render "photos/partial_views/photo_likes", photo: @photo %>
 <%= render "photos/partial_views/list_of_photo_comments",
             photo: @photo, range: 0..-1, render_more: false %>
-<%= render "photos/partial_views/new_photo_comment", photo: @photo %>
+<% if current_user %>
+  <%= render "photos/partial_views/new_photo_comment", photo: @photo %>
+<% end %>
