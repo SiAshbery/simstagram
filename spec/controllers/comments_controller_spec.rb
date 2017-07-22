@@ -109,7 +109,6 @@ RSpec.describe CommentsController, type: :controller do
 
     it "Flashes success message" do
       patch :update, params: { id: @comment.id, photo_id: @photo.id, comment: { body: "Updated Comment" } }
-      expect(assigns(:comment)).to eq(@comment)
       expect(flash[:success]).to eq("Comment edited!")
     end
 
@@ -118,6 +117,11 @@ RSpec.describe CommentsController, type: :controller do
       session[:user_id] = @user_02.id
       patch :update, params: { id: @comment.id, photo_id: @photo.id, comment: { body: "Updated Comment" } }
       expect(Comment.find(@comment.id).body).not_to eq("Updated Comment")
+    end
+
+    it "Flashes no_message_error" do
+      patch :update, params: { id: @comment.id, photo_id: @photo.id, comment: { body: nil } }
+      expect(flash[:no_message_error]).to eq("You must enter a message.")
     end
 
   end
