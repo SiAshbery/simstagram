@@ -46,9 +46,18 @@ RSpec.feature "User Signup", type: :feature do
 
     end
 
-    scenario "Can't sign up without an email" do
-      sign_up("Test_User", nil, "password", "wrongpassword")
-      expect(current_path).to eq("/users/new")
+    describe "No Email" do
+
+      scenario "Can't sign up without an email" do
+        sign_up("Test_User", nil, "password", "wrongpassword")
+        expect(current_path).to eq("/users/new")
+      end
+
+      scenario "Flashes a no email error" do
+        sign_up("Test_User", nil, "password", "password")
+        expect(page).to have_content("no_email_error: You must enter an email.")
+      end
+
     end
 
     scenario "Can't sign up without a password" do

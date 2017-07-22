@@ -29,6 +29,7 @@ class UsersController < ApplicationController
     def assign_error_types
       flash[:confirm_password_error] = "Your passwords don't match." unless @user.password == @user.password_confirmation
       flash[:no_name_error] = "You must enter a name." if @user.display_name == ""
+      flash[:no_email_error] = "You must enter an email." if @user.email == ""
     end
 
     def find_user
