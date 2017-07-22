@@ -74,7 +74,7 @@ RSpec.describe UsersController, type: :controller do
                                     email: "test@email.com",
                                     password: "password",
                                     password_confirmation: "password" } }
-            expect(flash[:success]).to eq("You're All Signed Up!")
+            expect(flash[:success]).to eq("You're all signed up!")
         end
 
       end
@@ -94,7 +94,15 @@ RSpec.describe UsersController, type: :controller do
                                     email: "test@email.com",
                                     password: "password",
                                     password_confirmation: "wrongpassword" } }
-            expect(flash[:error]).to eq("Your Passwords Don't Match")
+            expect(flash[:confirm_password_error]).to eq("Your passwords don't match.")
+        end
+
+        it "Flashes No Name" do
+            post :create, params: { user: {display_name: nil,
+                                    email: "test@email.com",
+                                    password: "password",
+                                    password_confirmation: "password" } }
+            expect(flash[:no_name_error]).to eq("You must enter a name.")
         end
 
       end

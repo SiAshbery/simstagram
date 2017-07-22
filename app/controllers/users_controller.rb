@@ -18,18 +18,17 @@ class UsersController < ApplicationController
     def verify_user_has_saved
       if @user.save
         session[:user_id] = @user.id
-        flash[:success] = "You're All Signed Up!"
+        flash[:success] = "You're all signed up!"
         redirect_to '/'
       else
-        assign_error_type
+        assign_error_types
         redirect_to '/users/new'
       end
     end
 
-    def assign_error_type
-      unless :password == :password_confirmation
-        flash[:error] = "Your Passwords Don't Match"
-      end
+    def assign_error_types
+      flash[:confirm_password_error] = "Your passwords don't match." unless @user.password == @user.password_confirmation
+      flash[:no_name_error] = "You must enter a name." if @user.display_name == ""
     end
 
     def find_user
