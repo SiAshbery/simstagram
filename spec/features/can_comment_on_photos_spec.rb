@@ -38,7 +38,7 @@ RSpec.feature "Comment on Photo", type: :feature do
       expect(page).to have_content("Test_User said: Test Comment at #{Time.now.strftime("%H:%M")} on #{Time.now.strftime("%d/%m/%Y")}" )
     end
 
-    scenario "Flases No Message Error" do
+    scenario "Flases Success message" do
       post_comment_with_image
       expect(page).to have_content("success: Comment posted!")
     end
@@ -178,6 +178,22 @@ RSpec.feature "Comment on Photo", type: :feature do
       log_out
       click_link("Show")
       expect(page).not_to have_content("Updated Comment")
+    end
+
+    scenario "Can't Edit a comment with empty body" do
+      post_comment_with_image
+      click_button("Edit Comment")
+      fill_in "comment_body", with: nil
+      click_button("Save Changes")
+      expect(page).to have_content("Edit Comment")
+    end
+
+    scenario "Flashes no_message_error" do
+      post_comment_with_image
+      click_button("Edit Comment")
+      fill_in "comment_body", with: nil
+      click_button("Save Changes")
+      expect(page).to have_content("no_message_error: You must enter a message.")
     end
 
   end

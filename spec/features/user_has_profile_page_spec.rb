@@ -14,7 +14,7 @@ RSpec.feature "User Profile Page", type: :feature do
     scenario "Can view a user's profile by clicking comment author" do
       post_comment_with_image
       visit("/")
-      within("li#comment_48") do
+      within("li#comment_51") do
         click_link("Show User")
       end
       expect(page).to have_content("Profile of Test_User")
@@ -31,7 +31,7 @@ RSpec.feature "User Profile Page", type: :feature do
 
     scenario "Can view a user's profile by clicking comment author" do
       post_comment_with_image
-      within("li#comment_49") do
+      within("li#comment_52") do
         click_link("Show User")
       end
       expect(page).to have_content("Profile of Test_User")

@@ -39,6 +39,7 @@ class CommentsController < ApplicationController
        flash[:success] = "Comment edited!"
        redirect_to "/"
      else
+       flash[:no_message_error] = "You must enter a message."
        render 'edit'
      end
    end
