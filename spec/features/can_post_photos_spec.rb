@@ -149,30 +149,42 @@ RSpec.feature "Post a Photo", type: :feature do
     describe "Success" do
 
       scenario "Users can Edit a photo" do
-        post_image
-        click_button("Edit Photo")
-        fill_in "photo_title", with: "New Title"
-        click_button("Save")
+        edit_photo
         expect(page).to have_content("New Title")
       end
 
       scenario "Flashes success message" do
-        post_image
-        click_button("Edit Photo")
-        fill_in "photo_title", with: "New Title"
-        click_button("Save")
+        edit_photo
         expect(page).to have_content("success: Photo edited!")
       end
 
     end
 
-    scenario "Users can't Edit a photo they don't own" do
-      post_image
-      log_out
-      sign_up("New_user", "new@email.com")
-      visit("/")
-      click_link("Show")
-      expect(page).not_to have_button("Edit Photo")
+    describe "Failure" do
+
+      scenario "Users can't Edit a photo they don't own" do
+        post_image
+        log_out
+        sign_up("New_user", "new@email.com")
+        visit("/")
+        click_link("Show")
+        expect(page).not_to have_button("Edit Photo")
+      end
+
+      describe "No Photo Title" do
+
+        scenario "Can't submit photo without title" do
+         edit_photo(nil)
+         expect(page).to have_content("Edit Photo")
+        end
+
+        scenario "Can't submit photo without title" do
+         edit_photo(nil)
+         expect(page).to have_content("no_title_error: Photo must have a title.")
+        end
+
+      end
+
     end
 
   end

@@ -57,6 +57,7 @@ private
         flash[:success] = "Photo edited!"
         redirect_to "/"
       else
+        determine_error_types
         render 'edit'
       end
     end

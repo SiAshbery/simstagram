@@ -187,11 +187,20 @@ RSpec.describe PhotosController, type: :controller do
 
       end
 
-      it "Won't update a photo if it doesn't belong to the current_user" do
-        @user_02 = create(:user)
-        session[:user_id] = @user_02.id
-        patch :update, params: { id: @photo.id, photo: { title: "Updated Photo" } }
-        expect(Photo.find(@photo.id).title).not_to eq("Updated Photo")
+      describe "Failure" do
+
+        it "Won't update a photo if it doesn't belong to the current_user" do
+          @user_02 = create(:user)
+          session[:user_id] = @user_02.id
+          patch :update, params: { id: @photo.id, photo: { title: "Updated Photo" } }
+          expect(Photo.find(@photo.id).title).not_to eq("Updated Photo")
+        end
+
+        it "Flashes no title message" do
+          patch :update, params: { id: @photo.id, photo: { title: nil } }
+          expect(flash[:no_title_error]).to eq("Photo must have a title.")
+        end
+
       end
 
     end
