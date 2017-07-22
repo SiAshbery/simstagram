@@ -62,3 +62,10 @@ def post_comment_without_image(body = "Test Comment")
   fill_in "comment_body", with: body
   click_button "Create Comment"
 end
+
+def edit_photo(title = "New Title")
+  post_image
+  click_button("Edit Photo")
+  fill_in "photo_title", with: title
+  click_button("Save")
+end
