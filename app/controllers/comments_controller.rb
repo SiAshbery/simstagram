@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
 
   def destroy
     find_comment
-    flash[:success] = "Comment deleted."
+    flash[:success] = "Comment deleted!"
     @comment.destroy if comment_belongs_to_user?
     redirect_to "/"
   end
@@ -36,6 +36,7 @@ class CommentsController < ApplicationController
 
    def verify_comment_has_updated
      if @comment.update_attributes(comment_params)
+       flash[:success] = "Comment edited!"
        redirect_to "/"
      else
        render 'edit'
