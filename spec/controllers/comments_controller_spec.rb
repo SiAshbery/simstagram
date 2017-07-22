@@ -41,6 +41,26 @@ RSpec.describe CommentsController, type: :controller do
           expect(assigns(:comment)).to eq(most_recent_comment)
       end
 
+      it "Flashes Comment Success" do
+        post :create, params: {
+          photo_id: @photo.id,
+          comment: {
+            body: "Test Comment"
+          }
+        }
+          expect(flash[:success]).to eq("Comment posted!")
+      end
+
+      it "Flashes No Message" do
+        post :create, params: {
+          photo_id: @photo.id,
+          comment: {
+            body: nil
+          }
+        }
+          expect(flash[:no_message_error]).to eq("You must enter a message.")
+      end
+
   end
 
   describe "DELETE Destroy" do
