@@ -77,6 +77,11 @@ RSpec.describe PhotosController, type: :controller do
             expect(assigns(:photo)).to eq(most_recent_photo)
         end
 
+        it "Flashes success message" do
+            post :create, params: { photo: {title: "New Photo", image_file: upload_file  } }
+            expect(flash[:success]).to eq("Photo posted!")
+        end
+
     end
 
     describe "DELETE Destroy" do
