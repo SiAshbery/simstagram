@@ -27,11 +27,18 @@ class SessionsController < ApplicationController
   private
 
   def assign_error_types(user)
+    no_user_error(user)
+    incorrect_password_error(user)
+  end
+
+  def no_user_error(user)
     flash[:no_user_error] = "User does not exist." unless user
+  end
+
+  def incorrect_password_error(user)
     if user
       flash[:password_error] = "Incorrect password." unless user.authenticate(params[:password])
     end
   end
-
 
 end
