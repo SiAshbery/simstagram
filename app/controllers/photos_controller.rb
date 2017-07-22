@@ -54,6 +54,7 @@ private
 
     def verify_photo_has_updated
       if @photo.update_attributes(photo_params)
+        flash[:success] = "Photo edited!"
         redirect_to "/"
       else
         render 'edit'
