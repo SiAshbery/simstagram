@@ -73,7 +73,19 @@ RSpec.feature "User Signup", type: :feature do
       end
 
     end
-    
+
+    describe "Multiple Errors" do
+
+      scenario "Flashes multiple errors" do
+        sign_up(nil, nil, nil, "wrongpassword")
+        expect(page).to have_content("confirm_password_error: Your passwords don't match.")
+        expect(page).to have_content("no_name_error: You must enter a name.")
+        expect(page).to have_content("no_email_error: You must enter an email.")
+        expect(page).to have_content("no_password_error: You must enter a password.")
+      end
+
+    end
+
   end
 
 end
