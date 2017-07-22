@@ -16,19 +16,19 @@ RSpec.feature "User Log In", type: :feature do
     expect(page).to have_content("success: Signed in!")
   end
 
-  # scenario "Can't log in if password is wrong" do
-  #   sign_up
-  #   log_out
-  #   log_in("test@email.com", "wrongpassword")
-  #   expect(current_path).to eq("/session/new")
-  # end
-  #
-  # scenario "Flashes incorrect password message" do
-  #   sign_up
-  #   log_out
-  #   log_in("test@email.com", "wrongpassword")
-  #   expect(page).to have_content("password_error: Incorrect password.")
-  # end
+  scenario "Can't log in if password is wrong" do
+    sign_up
+    log_out
+    log_in("test@email.com", "wrongpassword")
+    expect(current_path).to eq("/session/new")
+  end
+
+  scenario "Flashes incorrect password message" do
+    sign_up
+    log_out
+    log_in("test@email.com", "wrongpassword")
+    expect(page).to have_content("password_error: Incorrect password.")
+  end
 
   scenario "Can't log in if email is wrong" do
     sign_up
