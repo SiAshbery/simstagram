@@ -83,7 +83,7 @@ RSpec.feature "Post a Photo", type: :feature do
 
         scenario "flashes inavlid format error" do
          post_image("text", "test.txt")
-         expect(page).to have_content("invalid_format_error: File must be an image.")
+         expect(page).to have_content("invalid_file_error: File must be an image.")
         end
 
       end
@@ -91,24 +91,29 @@ RSpec.feature "Post a Photo", type: :feature do
       describe "No Photo Title" do
 
         scenario "Can't submit photo without title" do
-         post_image(nil, "test.txt")
-         expect(page).not_to have_content("New Photo")
+         post_image(nil, "test_image.png")
+         expect(page).not_to have_xpath("//img[contains(@src,'test_image.png')]")
         end
 
         scenario "Can't submit photo without title" do
-         post_image(nil, "test.txt")
+         post_image(nil, "test_image.png")
          expect(page).to have_content("no_title_error: Photo must have a title.")
         end
 
       end
 
-      scenario "Can't submit photo without file" do
-       sign_up
-       visit("/")
-       click_button ("New Photo")
-       fill_in "photo_title", with: "New Photo"
-       click_button "Save"
-       expect(page).not_to have_content("New Photo")
+      describe "No Photo File" do
+
+        scenario "Can't submit photo without file" do
+         post_image_without_file
+         expect(page).not_to have_content("New Photo")
+        end
+
+        scenario "Can't submit photo without file" do
+         post_image_without_file
+         expect(page).to have_content("no_file_error: Photo must have a file.")
+        end
+
       end
     end
   end

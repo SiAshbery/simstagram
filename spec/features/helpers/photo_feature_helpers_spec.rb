@@ -34,6 +34,14 @@ def post_image(title = "New Photo", image = "test_image.png")
     click_button "Save"
 end
 
+def post_image_without_file(title = "New Photo")
+  sign_up
+  visit("/")
+  click_button ("New Photo")
+  fill_in "photo_title", with: title
+  click_button "Save"
+end
+
 def show_image
     post_image
     visit("/")
