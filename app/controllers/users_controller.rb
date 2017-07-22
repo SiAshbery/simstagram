@@ -30,6 +30,7 @@ class UsersController < ApplicationController
       flash[:confirm_password_error] = "Your passwords don't match." unless @user.password == @user.password_confirmation
       flash[:no_name_error] = "You must enter a name." if @user.display_name == ""
       flash[:no_email_error] = "You must enter an email." if @user.email == ""
+      flash[:no_password_error] = "You must enter a password." unless @user.password
     end
 
     def find_user

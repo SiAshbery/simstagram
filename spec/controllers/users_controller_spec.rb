@@ -113,6 +113,14 @@ RSpec.describe UsersController, type: :controller do
             expect(flash[:no_email_error]).to eq("You must enter an email.")
         end
 
+        it "Flashes No Password" do
+            post :create, params: { user: {display_name: "Test_User",
+                                    email: "test@email.com",
+                                    password: nil,
+                                    password_confirmation: "password" } }
+            expect(flash[:no_password_error]).to eq("You must enter a password.")
+        end
+
       end
 
     end
