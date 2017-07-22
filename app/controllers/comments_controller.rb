@@ -5,8 +5,8 @@ class CommentsController < ApplicationController
 
     @comment = current_user.comments.new(comment_params)
     @comment.photo = @photo
-    @comment.save
-    redirect_to photo_path(@photo)
+    verify_comment_has_saved
+
   end
 
   def destroy
@@ -38,6 +38,16 @@ class CommentsController < ApplicationController
        redirect_to "/"
      else
        render 'edit'
+     end
+   end
+
+   def verify_comment_has_saved
+     if @comment.save
+       flash[:success] = "Comment posted!"
+       redirect_to photo_path(@photo)
+     else
+       flash[:no_message_error] = "You must enter a message."
+       redirect_to photo_path(@photo)
      end
    end
 
