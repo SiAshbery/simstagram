@@ -146,6 +146,11 @@ RSpec.describe PhotosController, type: :controller do
         expect(Photo.last).not_to eq(@photo)
       end
 
+      it "Flashes success" do
+        delete :destroy, params: { id: @photo.id }
+        expect(flash[:success]).to eq("Photo deleted!")
+      end
+
       it "Won't delete photo if it doesn't belong to the current_user" do
         @user_02 = create(:user)
         session[:user_id] = @user_02.id
