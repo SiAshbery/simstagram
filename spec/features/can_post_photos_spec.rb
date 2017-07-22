@@ -127,6 +127,12 @@ RSpec.feature "Post a Photo", type: :feature do
       expect(page).not_to have_xpath("//img[contains(@src,'test_image.png')]")
     end
 
+    scenario "Flashes Success Message" do
+      post_image
+      click_button("Delete Photo")
+      expect(page).to have_content("success: Photo deleted!")
+    end
+
     scenario "Users can't delete a photo they don't own" do
       post_image
       log_out
