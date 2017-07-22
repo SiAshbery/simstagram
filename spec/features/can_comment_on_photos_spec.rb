@@ -107,15 +107,18 @@ RSpec.feature "Comment on Photo", type: :feature do
   end
 
 
-
-
-
   describe "Deleting Comments on Show" do
 
     scenario "Can Delete a comment" do
       post_comment_with_image
       click_button("Delete Comment")
       expect(page).not_to have_content("Test_User said: Test Comment")
+    end
+
+    scenario "Flashes Success Comment" do
+      post_comment_with_image
+      click_button("Delete Comment")
+      expect(page).to have_content("success: Comment deleted.")
     end
 
     scenario "Can't Delete a comment if it does not belong to user" do
@@ -135,6 +138,12 @@ RSpec.feature "Comment on Photo", type: :feature do
       visit("/")
       click_button("Delete Comment")
       expect(page).not_to have_content("Test_User said: Test Comment")
+    end
+
+    scenario "Flashes Success Comment" do
+      post_comment_with_image
+      click_button("Delete Comment")
+      expect(page).to have_content("success: Comment deleted.")
     end
 
     scenario "Can't Delete a comment if it does not belong to user" do

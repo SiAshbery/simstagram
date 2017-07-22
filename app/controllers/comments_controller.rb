@@ -11,6 +11,7 @@ class CommentsController < ApplicationController
 
   def destroy
     find_comment
+    flash[:success] = "Comment deleted."
     @comment.destroy if comment_belongs_to_user?
     redirect_to "/"
   end
