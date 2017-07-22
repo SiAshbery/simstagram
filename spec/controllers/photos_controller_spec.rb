@@ -162,20 +162,29 @@ RSpec.describe PhotosController, type: :controller do
 
     describe "UPDATE edit" do
 
-      it "Returns a 302 status" do
-        patch :update, params: { id: @photo.id, photo: { title: "Updated Photo" } }
-        expect(response.status).to eq(302)
-      end
+      describe "success" do
 
-      it "redirects to show" do
-        patch :update, params: { id: @photo.id, photo: { title: "Updated Photo" } }
-        expect(response).to redirect_to("/")
-      end
+        it "Returns a 302 status" do
+          patch :update, params: { id: @photo.id, photo: { title: "Updated Photo" } }
+          expect(response.status).to eq(302)
+        end
 
-      it "Updates @photo" do
-        patch :update, params: { id: @photo.id, photo: { title: "Updated Photo" } }
-        expect(assigns(:photo)).to eq(@photo)
-        expect(Photo.find(@photo.id).title).to eq("Updated Photo")
+        it "redirects to show" do
+          patch :update, params: { id: @photo.id, photo: { title: "Updated Photo" } }
+          expect(response).to redirect_to("/")
+        end
+
+        it "Updates @photo" do
+          patch :update, params: { id: @photo.id, photo: { title: "Updated Photo" } }
+          expect(assigns(:photo)).to eq(@photo)
+          expect(Photo.find(@photo.id).title).to eq("Updated Photo")
+        end
+
+        it "Flashes success message" do
+          patch :update, params: { id: @photo.id, photo: { title: "Updated Photo" } }
+          expect(flash[:success]).to eq("Photo edited!")
+        end
+
       end
 
       it "Won't update a photo if it doesn't belong to the current_user" do
