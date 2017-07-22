@@ -41,6 +41,7 @@ private
 
     def verify_photo_has_saved
       if @photo.save
+        flash[:success] = "Photo posted!"
         redirect_to @photo
       else
         render :new
