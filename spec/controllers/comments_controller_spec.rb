@@ -84,7 +84,7 @@ RSpec.describe CommentsController, type: :controller do
 
     it "Flashes Success Message" do
       delete :destroy, params: { photo_id: @photo.id, id: @comment.id }
-      expect(flash[:success]).to eq("Comment deleted.")
+      expect(flash[:success]).to eq("Comment deleted!")
     end
 
   end
@@ -105,6 +105,12 @@ RSpec.describe CommentsController, type: :controller do
       patch :update, params: { id: @comment.id, photo_id: @photo.id, comment: { body: "Updated Comment" } }
       expect(assigns(:comment)).to eq(@comment)
       expect(Comment.find(@comment.id).body).to eq("Updated Comment")
+    end
+
+    it "Flashes success message" do
+      patch :update, params: { id: @comment.id, photo_id: @photo.id, comment: { body: "Updated Comment" } }
+      expect(assigns(:comment)).to eq(@comment)
+      expect(flash[:success]).to eq("Comment edited!")
     end
 
     it "Won't update a photo if it doesn't belong to the current_user" do

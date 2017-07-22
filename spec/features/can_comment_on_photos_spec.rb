@@ -115,10 +115,10 @@ RSpec.feature "Comment on Photo", type: :feature do
       expect(page).not_to have_content("Test_User said: Test Comment")
     end
 
-    scenario "Flashes Success Comment" do
+    scenario "Flashes Success message" do
       post_comment_with_image
       click_button("Delete Comment")
-      expect(page).to have_content("success: Comment deleted.")
+      expect(page).to have_content("success: Comment deleted!")
     end
 
     scenario "Can't Delete a comment if it does not belong to user" do
@@ -140,10 +140,11 @@ RSpec.feature "Comment on Photo", type: :feature do
       expect(page).not_to have_content("Test_User said: Test Comment")
     end
 
-    scenario "Flashes Success Comment" do
+    scenario "Flashes Success messager" do
       post_comment_with_image
+      visit("/")
       click_button("Delete Comment")
-      expect(page).to have_content("success: Comment deleted.")
+      expect(page).to have_content("success: Comment deleted!")
     end
 
     scenario "Can't Delete a comment if it does not belong to user" do
@@ -164,6 +165,14 @@ RSpec.feature "Comment on Photo", type: :feature do
       expect(page).to have_content("Updated Comment")
     end
 
+    scenario "Can Edit a comment" do
+      post_comment_with_image
+      click_button("Edit Comment")
+      fill_in "comment_body", with: "Updated Comment"
+      click_button("Save Changes")
+      expect(page).to have_content("success: Comment edited!")
+    end
+
     scenario "Can't Edit a comment that does not belong to user" do
       post_comment_with_image
       log_out
@@ -182,6 +191,15 @@ RSpec.feature "Comment on Photo", type: :feature do
       fill_in "comment_body", with: "Updated Comment"
       click_button("Save Changes")
       expect(page).to have_content("Updated Comment")
+    end
+
+    scenario "Shows success message" do
+      post_comment_with_image
+      visit("/")
+      click_button("Edit Comment")
+      fill_in "comment_body", with: "Updated Comment"
+      click_button("Save Changes")
+      expect(page).to have_content("success: Comment edited!")
     end
 
     scenario "Can't Edit a comment that does not belong to user" do
