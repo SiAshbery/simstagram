@@ -82,6 +82,11 @@ RSpec.describe CommentsController, type: :controller do
       expect(Comment.last).to eq(@comment)
     end
 
+    it "Flashes Success Message" do
+      delete :destroy, params: { photo_id: @photo.id, id: @comment.id }
+      expect(flash[:success]).to eq("Comment deleted.")
+    end
+
   end
 
   describe "UPDATE edit" do
