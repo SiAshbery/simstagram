@@ -18,9 +18,18 @@ RSpec.feature "User Signup", type: :feature do
 
   describe "Unsuccessful Sign Up" do
 
-    scenario "Can't sign up if password doesn't match confirmation" do
-      sign_up("Test_User", "test@email.com", "password", "wrongpassword")
-      expect(current_path).to eq("/users/new")
+    describe "Mismatched Passwords" do
+
+      scenario "Can't sign up if password doesn't match confirmation" do
+        sign_up("Test_User", "test@email.com", "password", "wrongpassword")
+        expect(current_path).to eq("/users/new")
+      end
+
+      scenario "Flashes a passwords don't match error message" do
+        sign_up("Test_User", "test@email.com", "password", "wrongpassword")
+        expect(page).to have_content("error: Your Passwords Don't Match")
+      end
+
     end
 
     scenario "Can't sign up without a name" do
