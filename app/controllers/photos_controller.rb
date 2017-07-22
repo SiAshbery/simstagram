@@ -47,7 +47,7 @@ private
         flash[:success] = "Photo posted!"
         redirect_to @photo
       else
-        determine_error_types
+        assign_error_types
         render :new
       end
     end
@@ -57,12 +57,12 @@ private
         flash[:success] = "Photo edited!"
         redirect_to "/"
       else
-        determine_error_types
+        assign_error_types
         render 'edit'
       end
     end
 
-    def determine_error_types
+    def assign_error_types
       flash[:invalid_file_error] = "File must be an image." unless file_format_is_valid?
       flash[:no_title_error] = "Photo must have a title." if @photo.title == ""
       flash[:no_file_error] = "Photo must have a file." if @photo.image_file.to_s == ""
