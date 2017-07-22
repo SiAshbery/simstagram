@@ -74,9 +74,18 @@ RSpec.feature "Post a Photo", type: :feature do
         expect(current_path).to eq("/")
       end
 
-      scenario "Can't submit a file that's not an image" do
-       post_image("text", "test.txt")
-       expect(page).not_to have_content("Text")
+      describe "Uploading non-image file" do
+
+        scenario "Can't submit a file that's not an image" do
+         post_image("text", "test.txt")
+         expect(page).not_to have_content("Text")
+        end
+
+        scenario "flashes inavlid format error" do
+         post_image("text", "test.txt")
+         expect(page).to have_content("invalid_format_error: File must be an image.")
+        end
+
       end
 
       scenario "Can't submit photo without title" do

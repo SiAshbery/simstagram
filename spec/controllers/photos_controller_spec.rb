@@ -62,6 +62,8 @@ RSpec.describe PhotosController, type: :controller do
 
     describe "POST Create" do
 
+      describe "success" do
+
         it "has a 302 status code" do
             post :create, params: { photo: {title: "New Photo", image_file: upload_file  } }
             expect(response.status).to eq(302)
@@ -81,6 +83,22 @@ RSpec.describe PhotosController, type: :controller do
             post :create, params: { photo: {title: "New Photo", image_file: upload_file  } }
             expect(flash[:success]).to eq("Photo posted!")
         end
+
+      end
+
+      describe "failure" do
+
+        it "redirects to new" do
+            post :create, params: { photo: {title: "New Photo", image_file: upload_file('test.txt') } }
+            expect(response).to render_template("new")
+        end
+
+        it "flashes invalid_format_error" do
+            post :create, params: { photo: {title: "New Photo", image_file: upload_file('test.txt') } }
+            expect(flash[:invalid_format_error]).to eq("File must be an image.")
+        end
+
+      end
 
     end
 
