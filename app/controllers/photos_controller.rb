@@ -2,6 +2,8 @@ class PhotosController < ApplicationController
 
     before_action :authorize, only: [:create, :new, :destroy, :update]
 
+    VALID_FILE_FORMATS = ["jpg", "jpeg", "gif", "png"]
+
     def new
       @photo = Photo.new
     end
@@ -44,6 +46,7 @@ private
         flash[:success] = "Photo posted!"
         redirect_to @photo
       else
+        determine_error_types
         render :new
       end
     end
@@ -54,6 +57,18 @@ private
       else
         render 'edit'
       end
+    end
+
+    def determine_error_types
+      flash[:invalid_format_error] = "File must be an image." unless file_format_is_valid?
+    end
+
+    def file_format_is_valid?
+      VALID_FILE_FORMATS.include?(photo_file_format)
+    end
+
+    def photo_file_format
+      @photo.image_file.to_s.downcase.split(".")[-1]
     end
 
     def find_photo
