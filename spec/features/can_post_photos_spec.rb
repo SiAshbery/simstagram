@@ -88,13 +88,18 @@ RSpec.feature "Post a Photo", type: :feature do
 
       end
 
-      scenario "Can't submit photo without title" do
-       sign_up
-       visit("/")
-       click_button ("New Photo")
-       attach_file("photo_image_file", Rails.root + "spec/support/images/test_image.png")
-       click_button "Save"
-       expect(page).not_to have_content("New Photo")
+      describe "No Photo Title" do
+
+        scenario "Can't submit photo without title" do
+         post_image(nil, "test.txt")
+         expect(page).not_to have_content("New Photo")
+        end
+
+        scenario "Can't submit photo without title" do
+         post_image(nil, "test.txt")
+         expect(page).to have_content("no_title_error: Photo must have a title.")
+        end
+
       end
 
       scenario "Can't submit photo without file" do
