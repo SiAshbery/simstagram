@@ -41,6 +41,26 @@ RSpec.describe CommentsController, type: :controller do
           expect(assigns(:comment)).to eq(most_recent_comment)
       end
 
+      it "Flashes Comment Success" do
+        post :create, params: {
+          photo_id: @photo.id,
+          comment: {
+            body: "Test Comment"
+          }
+        }
+          expect(flash[:success]).to eq("Comment posted!")
+      end
+
+      it "Flashes No Message" do
+        post :create, params: {
+          photo_id: @photo.id,
+          comment: {
+            body: nil
+          }
+        }
+          expect(flash[:no_message_error]).to eq("You must enter a message.")
+      end
+
   end
 
   describe "DELETE Destroy" do
@@ -60,6 +80,11 @@ RSpec.describe CommentsController, type: :controller do
       session[:user_id] = @user_02.id
       delete :destroy, params: { photo_id: @photo.id, id: @comment.id }
       expect(Comment.last).to eq(@comment)
+    end
+
+    it "Flashes Success Message" do
+      delete :destroy, params: { photo_id: @photo.id, id: @comment.id }
+      expect(flash[:success]).to eq("Comment deleted!")
     end
 
   end
@@ -82,11 +107,21 @@ RSpec.describe CommentsController, type: :controller do
       expect(Comment.find(@comment.id).body).to eq("Updated Comment")
     end
 
+    it "Flashes success message" do
+      patch :update, params: { id: @comment.id, photo_id: @photo.id, comment: { body: "Updated Comment" } }
+      expect(flash[:success]).to eq("Comment edited!")
+    end
+
     it "Won't update a photo if it doesn't belong to the current_user" do
       @user_02 = create(:user)
       session[:user_id] = @user_02.id
       patch :update, params: { id: @comment.id, photo_id: @photo.id, comment: { body: "Updated Comment" } }
       expect(Comment.find(@comment.id).body).not_to eq("Updated Comment")
+    end
+
+    it "Flashes no_message_error" do
+      patch :update, params: { id: @comment.id, photo_id: @photo.id, comment: { body: nil } }
+      expect(flash[:no_message_error]).to eq("You must enter a message.")
     end
 
   end

@@ -1,5 +1,7 @@
 <h1>Signup!</h1>
 
+<%= render "shared/navigation_menu" %>
+
 <%= form_for :user, url: '/users' do |user| %>
 
   Display Name: <%= user.text_field :display_name %>

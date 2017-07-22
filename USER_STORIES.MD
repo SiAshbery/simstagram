@@ -1,12 +1,6 @@
 # Incomplete:
 
 ```
-As a user
-So I know what's going on
-I want to see error messages when I can't complete an action
-```
-
-```
 As a creatively bankrupt user
 So I can simulate artistic ability
 I want to add filters to my photos
@@ -19,6 +13,12 @@ I want an avatar image
 ```
 
 # Complete:
+
+```
+As a user
+So I know what's going on
+I want to see error and success messages when I can't complete an action
+```
 
 ```
 As a user
