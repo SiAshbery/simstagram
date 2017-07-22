@@ -60,8 +60,9 @@ private
     end
 
     def determine_error_types
-      flash[:invalid_format_error] = "File must be an image." unless file_format_is_valid?
+      flash[:invalid_file_error] = "File must be an image." unless file_format_is_valid?
       flash[:no_title_error] = "Photo must have a title." if @photo.title == ""
+      flash[:no_file_error] = "Photo must have a file." if @photo.image_file.to_s == ""
     end
 
     def file_format_is_valid?

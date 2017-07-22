@@ -97,7 +97,7 @@ RSpec.describe PhotosController, type: :controller do
 
           it "flashes invalid_format_error" do
               post :create, params: { photo: {title: "New Photo", image_file: upload_file('test.txt') } }
-              expect(flash[:invalid_format_error]).to eq("File must be an image.")
+              expect(flash[:invalid_file_error]).to eq("File must be an image.")
           end
 
         end
@@ -109,9 +109,23 @@ RSpec.describe PhotosController, type: :controller do
               expect(response).to render_template("new")
           end
 
-          it "flashes invalid_format_error" do
+          it "flashes no_title_error" do
               post :create, params: { photo: {title: nil, image_file: upload_file } }
               expect(flash[:no_title_error]).to eq("Photo must have a title.")
+          end
+
+        end
+
+        describe "No File" do
+
+          it "redirects to new" do
+              post :create, params: { photo: {title: "New Photo", image_file: nil } }
+              expect(response).to render_template("new")
+          end
+
+          it "flashes invalid_format_error" do
+              post :create, params: { photo: {title: "New Photo", image_file: nil } }
+              expect(flash[:no_file_error]).to eq("Photo must have a file.")
           end
 
         end
