@@ -21,7 +21,14 @@ class UsersController < ApplicationController
         flash[:success] = "You're All Signed Up!"
         redirect_to '/'
       else
+        assign_error_type
         redirect_to '/users/new'
+      end
+    end
+
+    def assign_error_type
+      unless :password == :password_confirmation
+        flash[:error] = "Your Passwords Don't Match"
       end
     end
 
@@ -30,7 +37,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-        params.require(:user).permit(:display_name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:display_name, :email, :password, :password_confirmation)
     end
 
 end

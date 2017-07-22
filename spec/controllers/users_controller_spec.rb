@@ -43,6 +43,8 @@ RSpec.describe UsersController, type: :controller do
 
     describe "POST Create" do
 
+      describe "Success" do
+
         it "has a 302 status code" do
             post :create, params: { user: {display_name: "Test_User",
                                     email: "test@email.com",
@@ -74,6 +76,28 @@ RSpec.describe UsersController, type: :controller do
                                     password_confirmation: "password" } }
             expect(flash[:success]).to eq("You're All Signed Up!")
         end
+
+      end
+
+      describe "Failure" do
+
+        it "redirects to new user" do
+            post :create, params: { user: {display_name: "Test_User",
+                                    email: "test@email.com",
+                                    password: "password",
+                                    password_confirmation: "wrongpassword" } }
+            expect(response).to redirect_to('/users/new')
+        end
+
+        it "Flashes Mismatched Passwords" do
+            post :create, params: { user: {display_name: "Test_User",
+                                    email: "test@email.com",
+                                    password: "password",
+                                    password_confirmation: "wrongpassword" } }
+            expect(flash[:error]).to eq("Your Passwords Don't Match")
+        end
+
+      end
 
     end
 
