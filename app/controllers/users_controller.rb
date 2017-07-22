@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     def verify_user_has_saved
       if @user.save
         session[:user_id] = @user.id
+        flash[:success] = "You're All Signed Up!"
         redirect_to '/'
       else
         redirect_to '/users/new'

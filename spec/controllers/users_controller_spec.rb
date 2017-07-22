@@ -67,6 +67,14 @@ RSpec.describe UsersController, type: :controller do
             expect(session[:user_id]).to eq(most_recent_user.id)
         end
 
+        it "Flashes Success" do
+            post :create, params: { user: {display_name: "Test_User",
+                                    email: "test@email.com",
+                                    password: "password",
+                                    password_confirmation: "password" } }
+            expect(flash[:success]).to eq("You're All Signed Up!")
+        end
+
     end
 
 end
