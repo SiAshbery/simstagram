@@ -9,4 +9,10 @@ RSpec.feature "User Log Out", type: :feature do
     expect(page).to have_content("Welcome!")
   end
 
+  scenario "Flashes successful log out message" do
+    sign_up
+    click_button "Log Out"
+    expect(page).to have_content("success: You're now logged out!")
+  end
+
 end
