@@ -1,0 +1,34 @@
+.photo-content {
+  padding-left: 30px;
+  display: block;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+.photo-content-background {
+  background-color: #FFFAF3;
+}
+
+.photo-list {
+  padding-left: 0px;
+}
+
+.photo-list-item {
+  display: block;
+  margin: 20px 0px 20px 0px;
+  width: 100%;
+  list-style-type: none;
+}
+
+.photo-title {
+  font-size: 22px;
+}
+
+.photo-posted-time {
+  font-size: 18px;
+}
+
+.photo-likes {
+  font-size: 14px;
+}

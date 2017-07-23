@@ -1,4 +1,13 @@
-<%= render "photos/partial_views/photo_title", photo: photo, heading_1: heading_1 %>
-Posted: <%= photo.created_at.strftime("%d/%m/%Y %H:%M") %><br>
-<a href="<%= photo_path(photo) %>" id="Show"> <img src="<%= photo.image_file_url%>"  width="<%= size %>"></img></a><br>
-<%= photo.likes.length %> <%= photo.likes.length == 1 ? "Like" : "Likes" %>
+<div class="photo-content-background">
+  <div class="photo-content">
+    <%= render "photos/partial_views/photo_title", photo: photo, heading_1: heading_1 %>
+    <div class="photo-posted-time">
+      Posted: <%= photo.created_at.strftime("%d/%m/%Y %H:%M") %><br>
+    </div>
+    <a href="<%= photo_path(photo) %>" id="Show"> <img src="<%= photo.image_file_url%>"  width="<%= size %>"></img></a><br>
+    <div class="photo-likes">
+      <%= photo.likes.length %> <%= photo.likes.length == 1 ? "Like" : "Likes" %>
+      <%= render "photos/partial_views/photo_likes", photo: photo %>
+    </div>
+  </div>
+</div>
