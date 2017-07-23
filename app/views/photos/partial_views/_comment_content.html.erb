@@ -1,5 +1,11 @@
-<a href="<%= user_path(comment.user) %>" id="Show User"><%= comment.user.display_name %></a> said:<br>
-<%= comment.body %><br>
-at <%= comment.created_at.strftime("%H:%M") %> on <%= comment.created_at.strftime("%d/%m/%Y") %>
+<div class="comment">
+  <a href="<%= user_path(comment.user) %>" class="comment-info" id="Show User"><%= comment.user.display_name %></a> said:<br>
+  <div class="comment-body">
+    <%= comment.body %>
+  </div>
+  <div class="comment-info">
+    at <%= comment.created_at.strftime("%H:%M") %> on <%= comment.created_at.strftime("%d/%m/%Y") %>
+  </div>
+</div>
 <%= render "photos/partial_views/comment_user_options",
             photo: photo, comment: comment %>

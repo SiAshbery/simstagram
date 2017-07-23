@@ -1,5 +1,4 @@
-<h1>Simstagram!</h1>
-<%= button_to 'Home', '/', method: :get %>
+<%= button_to 'Home', '/', method: :get, :form => { :class => "navigation-button" } %>
 <% if current_user %>
   <%= render "shared/signed_in_navigation" %>
 <% else %>

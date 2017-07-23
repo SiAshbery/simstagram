@@ -1,15 +1,15 @@
 <% if photo.comments.any?  %>
-  comments: <br>
+  <h2>comments:</h2>
   <ul>
     <% photo.comments[range].each do |comment| %> <br>
-      <li id="comment_<%= comment.id %>">
+      <li class="comment-list-item" id="comment_<%= comment.id %>">
           <%= render "photos/partial_views/comment_content",
                       photo: photo, comment: comment %>
       </li>
     <% end %>
     <% if photo.comments.length > 3 && render_more %>
-      <li>
-        <a href="<%= photo_path(photo) %>" id="Show_More">...</a>
+      <li class="comment-list-item">
+        <a class="comment" href="<%= photo_path(photo) %>" id="Show_More">...</a>
       </li>
     <% end %>
   </ul>

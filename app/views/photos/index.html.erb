@@ -1,5 +1,7 @@
-<%= render "shared/navigation_menu" %>
+<%= stylesheet_link_tag "main" %>
 
-<%= render 'index_header' %>
+<%= render "shared/title_bar" %>
+
+<%= render 'photos/partial_views/index_header' %>
 
 <%= render "photos/partial_views/list_of_photos", size: 600 %>

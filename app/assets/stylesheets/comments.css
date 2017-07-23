@@ -1,0 +1,21 @@
+.comment {
+  background-color: #FFFAF3;
+}
+
+.comment-list-item {
+  padding-left: 30px;
+  display: block;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+.comment-body {
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.comment-info {
+  font-size: 16px;
+}

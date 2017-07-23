@@ -1,5 +1,9 @@
-<ul>
+<ul id="flash-message-list">
 <% flash.each do |key, value| %>
-  <li><%= key %>: <%= value %></li>
+  <% if key == "success" %>
+  <li class="flash-success-message"><%= key %>: <%= value %></li>
+  <% else %>
+  <li class="flash-error-message"><%= key %>: <%= value %></li>
+  <% end %>
 <% end %>
 </ul>
