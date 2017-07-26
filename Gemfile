@@ -32,6 +32,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Uploader for images
 gem 'carrierwave', '~> 1.0'
+gem 'fog-aws'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
