@@ -5,13 +5,17 @@ A profound exploration of human social dynamics cunningly disguised as a website
 
 ## How Does it Work?
 
+- [Visit Simstagram on Heroku](http://sim-stagram.herokuapp.com/)
+
+or
+
 - Clone this repository
 - Navigate to the newly cloned directory via your command line
 - ```bundle install```
+- Make sure it's all working by running ```rspec```
 - ```rails server```
-- Visit localhost:3000
+- Visit [localhost:3000](http://localhost:3000)
 - Make all your friends jealous of your life-style by pretending that photo you just posted was a candid shot of you enjoying life and not your twentieth attempt to hide the void inside behind vintage filters and flattering angles.
-- Alternatively you can visit [heokuapp link here]
 
 
 ## Aims For This Project:
@@ -19,7 +23,7 @@ A profound exploration of human social dynamics cunningly disguised as a website
 - Better understand the process of working with a framework such as Rails
 - Adhere to SOLID design principles
 - Test early, Test often, Test thoroughly
-- Present the product with a beautiful and dynamic frontend
+- Present the product with a beautiful frontend
 
 
 ## My Approach
@@ -30,7 +34,7 @@ Therefore I have opted to carefully model and diagram Simstagram in order to hav
 
 Since the structure of my program is likely to change during development I will keep my digrams up to date in order to chart it's evolution and the progression of my thinking.
 
-I found it important to get the core functionality of Simstagram working before exploring it's presentation so front end functionality has been left till last. 
+I found it important to get the core functionality of Simstagram working before exploring it's presentation so front end functionality has been left till last.
 
 ## Domain Model
 
@@ -38,12 +42,12 @@ I found it important to get the core functionality of Simstagram working before 
 
 ## Known Issues/TODOs
 
-- Build Simstagram
 - Tests for Session Controller are all currently pending untill I can research how best to approach them
 - If rspec tests are failing citing "TypeError: wrong argument type Integer (expected Proc)" This is a bug with Ruby MRI 2.4.0 https://bugs.ruby-lang.org/issues/13107. Please ensure you are using Ruby 2.4.1
 
+
 ## Acknowledgement
-- Thanks to Jenny Wem (https://github.com/wemmm) for showing me how to write a good README
+- Thanks to [Jenny Wem](https://github.com/wemmm) for showing me how to write a good README
 
 ## Other Matters
 
