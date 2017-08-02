@@ -30,6 +30,6 @@ CarrierWave.configure do |config|
     aws_secret_access_key: Rails.application.secrets.aws_secret_access_key,
     region: 'eu-west-2'
   }
-  config.fog_directory  = Rails.application.secrets.aws_bucket_name
+  config.fog_directory = Rails.application.secrets.aws_bucket_name
 
 end

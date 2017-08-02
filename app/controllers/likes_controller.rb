@@ -1,5 +1,4 @@
 class LikesController < ApplicationController
-
   def create
     if current_user
       assign_photo
@@ -33,5 +32,4 @@ class LikesController < ApplicationController
   def assign_photo
     @photo = Photo.find(params[:photo_id])
   end
-
 end

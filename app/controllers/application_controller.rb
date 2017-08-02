@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
     redirect_to '/' unless current_user
   end
 
-  def user_has_liked_photo?( photo = @photo )
+  def user_has_liked_photo?(photo = @photo)
     return unless current_user
     current_user.likes.any? { |like| like.photo.id == photo.id }
   end
@@ -37,5 +37,4 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :comment_belongs_to_user?
-
 end

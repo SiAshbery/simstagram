@@ -77,13 +77,13 @@ RSpec.feature "Post a Photo", type: :feature do
       describe "Uploading non-image file" do
 
         scenario "Can't submit a file that's not an image" do
-         post_image("text", "test.txt")
-         expect(page).not_to have_content("Text")
+          post_image("text", "test.txt")
+          expect(page).not_to have_content("Text")
         end
 
         scenario "flashes inavlid format error" do
-         post_image("text", "test.txt")
-         expect(page).to have_content("invalid_file_error: File must be an image.")
+          post_image("text", "test.txt")
+          expect(page).to have_content("invalid_file_error: File must be an image.")
         end
 
       end
@@ -91,13 +91,13 @@ RSpec.feature "Post a Photo", type: :feature do
       describe "No Photo Title" do
 
         scenario "Can't submit photo without title" do
-         post_image(nil, "test_image.png")
-         expect(page).not_to have_xpath("//img[contains(@src,'test_image.png')]")
+          post_image(nil, "test_image.png")
+          expect(page).not_to have_xpath("//img[contains(@src,'test_image.png')]")
         end
 
         scenario "Can't submit photo without title" do
-         post_image(nil, "test_image.png")
-         expect(page).to have_content("no_title_error: Photo must have a title.")
+          post_image(nil, "test_image.png")
+          expect(page).to have_content("no_title_error: Photo must have a title.")
         end
 
       end
@@ -105,17 +105,19 @@ RSpec.feature "Post a Photo", type: :feature do
       describe "No Photo File" do
 
         scenario "Can't submit photo without file" do
-         post_image_without_file
-         expect(page).not_to have_content("New Photo")
+          post_image_without_file
+          expect(page).not_to have_content("New Photo")
         end
 
         scenario "Can't submit photo without file" do
-         post_image_without_file
-         expect(page).to have_content("no_file_error: Photo must have a file.")
+          post_image_without_file
+          expect(page).to have_content("no_file_error: Photo must have a file.")
         end
 
       end
+
     end
+
   end
 
   describe "Deleting a Photo" do
@@ -174,13 +176,13 @@ RSpec.feature "Post a Photo", type: :feature do
       describe "No Photo Title" do
 
         scenario "Can't submit photo without title" do
-         edit_photo(nil)
-         expect(page).to have_content("Edit Photo")
+          edit_photo(nil)
+          expect(page).to have_content("Edit Photo")
         end
 
         scenario "Can't submit photo without title" do
-         edit_photo(nil)
-         expect(page).to have_content("no_title_error: Photo must have a title.")
+          edit_photo(nil)
+          expect(page).to have_content("no_title_error: Photo must have a title.")
         end
 
       end
@@ -188,4 +190,5 @@ RSpec.feature "Post a Photo", type: :feature do
     end
 
   end
+
 end

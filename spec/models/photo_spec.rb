@@ -4,7 +4,7 @@ RSpec.describe Photo, type: :model do
   before(:each) do
     @photo = create(:photo)
   end
-  
+
   it "Has a title" do
     expect(@photo.title).to eq "Test Photo"
   end

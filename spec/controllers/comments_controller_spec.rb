@@ -3,63 +3,43 @@ require 'rails_helper'
 RSpec.describe CommentsController, type: :controller do
 
   before(:each) do
-      @comment = create(:comment)
-      @user = @comment.user
-      @photo = @comment.photo
-      session[:user_id] = @user.id
+    @comment = create(:comment)
+    @user = @comment.user
+    @photo = @comment.photo
+    session[:user_id] = @user.id
   end
 
   describe "POST Create" do
 
-      it "has a 302 status code" do
-          post :create, params: {
-            photo_id: @photo.id,
-            comment: {
-              body: "Test Comment"
-            }
-          }
-          expect(response.status).to eq(302)
-      end
+    it "has a 302 status code" do
+      post :create, params: { photo_id: @photo.id,
+                              comment: { body: "Test Comment" } }
+      expect(response.status).to eq(302)
+    end
 
-      it "redirects to show" do
-          post :create, params: {
-            photo_id: @photo.id,
-            comment: {
-              body: "Test Comment"
-            }
-          }
-          expect(response).to redirect_to("/photos/#{most_recent_photo.id}")
-      end
+    it "redirects to show" do
+      post :create, params: { photo_id: @photo.id,
+                              comment: { body: "Test Comment" } }
+      expect(response).to redirect_to("/photos/#{most_recent_photo.id}")
+    end
 
-      it "assigns @comment" do
-          post :create, params: {
-            photo_id: @photo.id,
-            comment: {
-              body: "Test Comment"
-            }
-          }
-          expect(assigns(:comment)).to eq(most_recent_comment)
-      end
+    it "assigns @comment" do
+      post :create, params: { photo_id: @photo.id,
+                              comment: { body: "Test Comment" } }
+      expect(assigns(:comment)).to eq(most_recent_comment)
+    end
 
-      it "Flashes Comment Success" do
-        post :create, params: {
-          photo_id: @photo.id,
-          comment: {
-            body: "Test Comment"
-          }
-        }
-          expect(flash[:success]).to eq("Comment posted!")
-      end
+    it "Flashes Comment Success" do
+      post :create, params: { photo_id: @photo.id,
+                              comment: { body: "Test Comment" } }
+      expect(flash[:success]).to eq("Comment posted!")
+    end
 
-      it "Flashes No Message" do
-        post :create, params: {
-          photo_id: @photo.id,
-          comment: {
-            body: nil
-          }
-        }
-          expect(flash[:no_message_error]).to eq("You must enter a message.")
-      end
+    it "Flashes No Message" do
+      post :create, params: { photo_id: @photo.id,
+                              comment: { body: nil } }
+      expect(flash[:no_message_error]).to eq("You must enter a message.")
+    end
 
   end
 

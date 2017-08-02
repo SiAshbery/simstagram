@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-
   def new
   end
 
@@ -13,7 +12,7 @@ class SessionsController < ApplicationController
       flash[:success] = "Signed in!"
       redirect_to '/'
     else
-    # If user's login doesn't work, send them back to the login form.
+      # If user's login doesn't work, send them back to the login form.
       assign_error_types(user)
       redirect_to '/session/new'
     end
@@ -41,5 +40,4 @@ class SessionsController < ApplicationController
       flash[:password_error] = "Incorrect password." unless user.authenticate(params[:password])
     end
   end
-
 end

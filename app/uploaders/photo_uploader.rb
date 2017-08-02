@@ -1,5 +1,4 @@
 class PhotoUploader < CarrierWave::Uploader::Base
-
   if Rails.env.test? || Rails.env.development?
     storage :file
   else
@@ -13,5 +12,4 @@ class PhotoUploader < CarrierWave::Uploader::Base
   def extension_whitelist
     %w(jpg jpeg gif png)
   end
-
 end

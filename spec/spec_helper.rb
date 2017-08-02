@@ -25,7 +25,8 @@ RSpec.configure do |config|
       FileUtils.rm_rf(Dir["#{Rails.root}/spec/support/uploads"])
     end
   end
-    config.before(:suite) do
+
+  config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
   end

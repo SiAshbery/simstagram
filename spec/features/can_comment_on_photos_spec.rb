@@ -35,7 +35,7 @@ RSpec.feature "Comment on Photo", type: :feature do
 
     scenario "Comments show their created at date on index" do
       post_comment_with_image
-      expect(page).to have_content("Test_User said: Test Comment at #{Time.now.strftime("%H:%M")} on #{Time.now.strftime("%d/%m/%Y")}" )
+      expect(page).to have_content("Test_User said: Test Comment at #{Time.now.strftime("%H:%M")} on #{Time.now.strftime("%d/%m/%Y")}")
     end
 
     scenario "Flases Success message" do
@@ -106,7 +106,6 @@ RSpec.feature "Comment on Photo", type: :feature do
 
   end
 
-
   describe "Deleting Comments on Show" do
 
     scenario "Can Delete a comment" do
@@ -129,7 +128,6 @@ RSpec.feature "Comment on Photo", type: :feature do
     end
 
   end
-
 
   describe "Deleting Comments on Index" do
 

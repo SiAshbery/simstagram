@@ -13,45 +13,34 @@ RSpec.describe LikesController, type: :controller do
   describe "POST Create" do
 
     it "has a 302 status code" do
-      post :create, params: {
-        photo_id: @photo.id,
-      }
+      post :create, params: { photo_id: @photo.id }
       expect(response.status).to eq(302)
     end
 
     it "redirects to index" do
-      post :create, params: {
-        photo_id: @photo.id,
-      }
+      post :create, params: { photo_id: @photo.id }
       expect(response).to redirect_to("/")
     end
 
     it "assigns @like" do
-      post :create, params: {
-        photo_id: @photo_02.id,
-        }
-        expect(assigns(:like)).to eq(most_recent_like)
+      post :create, params: { photo_id: @photo_02.id }
+      expect(assigns(:like)).to eq(most_recent_like)
     end
-  end
 
+  end
 
   describe "DELETE Destroy" do
 
     it "Returns a 302 status" do
-      delete :destroy, params: {
-        photo_id: @photo.id,
-        id: @like.id
-      }
+      delete :destroy, params: { photo_id: @photo.id, id: @like.id }
       expect(response.status).to eq(302)
     end
 
     it "Deletes like" do
-      delete :destroy, params: {
-        photo_id: @photo.id,
-        id: @like.id
-      }
+      delete :destroy, params: { photo_id: @photo.id, id: @like.id }
       expect(Like.last).not_to eq(@like)
     end
 
   end
+
 end
